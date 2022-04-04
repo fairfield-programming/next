@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
+import GenerateUser from "../../generators/User";
 
-export async function getServerData() {
+export async function getServerData(context) {
+
+    let urlParts = context.url.split("/");
+    let userId = -1;
+
+    if (urlParts.length === 5) userId = urlParts[3];
 
     try {
-        const res = await fetch(`https://fairfield-programming.herokuapp.com/user/6`)
+        const res = await fetch(`https://fairfield-programming.herokuapp.com/user/${userId}`)
         
+        console.log(res.url);
+
         if (!res.ok) {
             throw new Error(`Response failed`)
         }
@@ -21,11 +29,13 @@ export async function getServerData() {
           props: {}
         }
 
-      }
+    }
 
 }
 
-export default function UserPage({ serverData }) {
+export default function UserPage({ id, serverData }) {
+    
+    console.log(id);
 
     const [ user, setUser ] = useState({});
     useEffect(() => {
@@ -46,6 +56,8 @@ export default function UserPage({ serverData }) {
 
     }, [])
 
-    return (<h1>Hello There, { serverData.username }</h1>);
+    let userData = GenerateUser(serverData);
+
+    return (<h1>Hello There, { `${userData.firstname} ${userData.lastname}` }</h1>);
 
 }

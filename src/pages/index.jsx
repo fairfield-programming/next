@@ -1,13 +1,13 @@
 import React from 'react';
 import { Router } from "@reach/router";
 
-import User from "./pages/user";
+import User from "./user/[id]";
 
 const MyRouter = () => {
 
     return (
       <Router>
-        <User path="/user/"></User>
+        <User path="user/:id"></User>
       </Router>
     );
   

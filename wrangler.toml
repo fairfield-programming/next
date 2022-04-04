@@ -1,0 +1,8 @@
+name = "next"
+type = "webpack"
+workers_dev = true
+compatibility_date = "2022-04-04"
+
+[site]
+bucket = "./public"
+entry-point = "workers-site"
