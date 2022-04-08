@@ -1,7 +1,14 @@
 import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
-  plugins: [ "gatsby-plugin-theme-ui" ]
+  plugins: [
+      {
+      resolve: `gatsby-plugin-theme-ui`,
+      options: {
+        preset: require("./src/theme"),
+      },
+    }
+  ]
 };
 
 export default config;
