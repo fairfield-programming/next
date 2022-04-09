@@ -20,12 +20,7 @@ export function onRequestGet({ env, request }) {
 
 export async function getServerData(context) {
 
-    let urlParts = context.url.split("/");
-    let userId = -1;
-
-    if (urlParts.length === 3) userId = urlParts[2];
-
-    console.log(urlParts);
+    let userId = context.params['*'];
 
     try {
         const res = await fetch(`https://fairfield-programming.herokuapp.com/user/${userId}`)
@@ -34,8 +29,10 @@ export async function getServerData(context) {
             throw new Error(`Response failed`)
         }
 
+        const userData = await res.json();
+
         return {
-          props: await res.json(),
+          props: userData
         }
 
       } catch (error) {
@@ -62,10 +59,10 @@ export default function UserPage({ id, serverData }) {
       }
     ];
 
-    const [ user, setUser ] = useState({});
+    const [ questions, setQuestions ] = useState([]);
     useEffect(() => {
 
-        fetch("https://fairfield-programming.herokuapp.com/user/6", { 
+        fetch("https://fpa-questions.herokuapp.com/user/6/questions", { 
             // mode: "no-cors" 
         }).then((response) => {
 
@@ -75,7 +72,7 @@ export default function UserPage({ id, serverData }) {
 
         }).then((data) => {
 
-            setUser(data);
+            setQuestions(data);
 
         })
 
@@ -117,45 +114,43 @@ export default function UserPage({ id, serverData }) {
         </div>
 
         </Card>
-        <ul
-          sx={{
-            listStyle: 'none',
-            display: 'grid',
-            gridGap: 3,
-            gridTemplateColumns: 'repeat(auto-fit, minmax(256px, 1fr))',
+        <div sx={{
             m: 0,
             px: 3,
             py: 4,
-          }}>
-          {posts.map((post) => (
-            <li key={post.id} sx={{}}>
-              <Heading
-                sx={{
-                  m: 0,
-                }}>
-                <Link
-                  to={post.slug}
+        }}>
+          <Heading as="h1">{ `${questions.length} Questions` }</Heading>
+          <ul
+            sx={{
+              listStyle: 'none',
+              display: 'grid',
+              gridGap: 3,
+              gridTemplateColumns: 'repeat(auto-fit, minmax(256px, 1fr))',
+            }}>
+            {questions.map((post) => (
+              <li key={post.id} sx={{}}>
+                <Heading
                   sx={{
-                    color: 'inherit',
-                    textDecoration: 'none',
-                    ':hover,:focus': {
-                      color: 'primary',
-                      textDecoration: 'underline',
-                    },
+                    m: 0,
                   }}>
-                  {post.title}
-                </Link>
-              </Heading>
-              <small sx={{ fontWeight: 'bold' }}>{post.date}</small>
-              <Text
-                sx={{
-                  m: 0,
-                }}>
-                {post.excerpt}
-              </Text>
-            </li>
-          ))}
-        </ul>
+                  <Link
+                    href={`/questions/${post.id}`}
+                    sx={{
+                      color: 'inherit',
+                      fontWeight: 'body',
+                      textDecoration: 'none',
+                      ':hover,:focus': {
+                        color: 'primary',
+                        textDecoration: 'underline',
+                      },
+                    }}>
+                    {post.body}
+                  </Link>
+                </Heading>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <Footer />
     </>);
