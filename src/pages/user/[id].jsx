@@ -23,7 +23,7 @@ export async function getServerData(context) {
     let urlParts = context.url.split("/");
     let userId = -1;
 
-    if (urlParts.length === 5) userId = urlParts[3];
+    if (urlParts.length === 4) userId = urlParts[3];
 
     try {
         const res = await fetch(`https://fairfield-programming.herokuapp.com/user/${userId}`)
