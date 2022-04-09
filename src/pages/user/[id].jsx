@@ -25,6 +25,8 @@ export async function getServerData(context) {
 
     if (urlParts.length === 4) userId = urlParts[3];
 
+    console.log(urlParts);
+
     try {
         const res = await fetch(`https://fairfield-programming.herokuapp.com/user/${userId}`)
 
