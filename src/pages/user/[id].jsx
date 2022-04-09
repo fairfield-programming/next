@@ -7,7 +7,7 @@ import Footer from "../../components/footer";
 import GenerateUser from "../../generators/User";
 
 /** @jsx jsx */
-import { Avatar, Link, Divider, Grid, Card, Heading, Text, Button, Flex, NavLink, Box, jsx } from 'theme-ui';
+import { Avatar, Link, Card, Heading, Text, jsx } from 'theme-ui';
 
 export function onRequestGet({ env, request }) {
     return env.ASSETS.fetch(
@@ -32,7 +32,7 @@ export async function getServerData(context) {
         const userData = await res.json();
 
         return {
-          props: userData
+          props: { ...userData, id: userId }
         }
 
       } catch (error) {
@@ -47,22 +47,18 @@ export async function getServerData(context) {
 
 }
 
-export default function UserPage({ id, serverData }) {
+export default function UserPage({ serverData }) {
 
-    const posts = [
-      {
-        date: "Testing",
-        id: 1,
-        title: "This is a test",
-        excerpt: "lorem ipsum",
-        slug: "This is a test"
-      }
-    ];
+    let userData = GenerateUser(serverData);
+
+    console.log(userData);
 
     const [ questions, setQuestions ] = useState([]);
     useEffect(() => {
 
-        fetch("https://fpa-questions.herokuapp.com/user/6/questions", { 
+      console.log(`https://fpa-questions.herokuapp.com/user/${userData.id}/questions`);
+
+        fetch(`https://fpa-questions.herokuapp.com/user/${userData.id}/questions`, { 
             // mode: "no-cors" 
         }).then((response) => {
 
@@ -72,13 +68,13 @@ export default function UserPage({ id, serverData }) {
 
         }).then((data) => {
 
+            console.log(data);
+
             setQuestions(data);
 
         })
 
-    }, [])
-
-    let userData = GenerateUser(serverData);
+    }, [ userData.id ])
 
     return (<>
       <Helmet>
