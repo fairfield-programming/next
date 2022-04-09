@@ -23,7 +23,7 @@ export async function getServerData(context) {
     let urlParts = context.url.split("/");
     let userId = -1;
 
-    if (urlParts.length === 4) userId = urlParts[3];
+    if (urlParts.length === 3) userId = urlParts[2];
 
     console.log(urlParts);
 
