@@ -78,7 +78,6 @@ export default function UserPage({ serverData }) {
 
     return (<>
       <Helmet>
-        <meta charSet="utf-8" />
         <title>{ `${userData.firstname} ${userData.lastname} - The Fairfield Programming Association` }</title>
         <link rel="canonical" href={`http://fairfieldprogramming.org/user/${userData.id}`} />
       </Helmet>
