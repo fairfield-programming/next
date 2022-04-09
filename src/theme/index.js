@@ -62,6 +62,13 @@ export default {
       }
     },
   },
+  avatars: {
+    large: {
+      width: 128,
+      height: 128,
+      borderRadius: 99999,
+    },
+  },
   text: {
     default: {
       color: 'text',

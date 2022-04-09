@@ -5,10 +5,14 @@ export default function GenerateUser(userData) {
     let firstname = capitalize(names[0] || "");
     let lastname = capitalize(names[1] || "");
 
+    console.log(userData);
+
     return {
         username: userData.username,
         firstname,
-        lastname
+        lastname,
+        profilePicture: userData.profilePicture,
+        biography: userData.biography,
     };
 
 }

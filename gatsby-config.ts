@@ -7,7 +7,9 @@ const config: GatsbyConfig = {
       options: {
         preset: require("./src/theme"),
       },
-    }
+    },
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-netlify`
   ]
 };
 
