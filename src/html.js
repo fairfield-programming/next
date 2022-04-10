@@ -11,13 +11,12 @@ export default function HTML(props) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <script type="application/ld+json">
-        {JSON.stringify({
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
           "url": "https://fairfieldprogramming.org",
           "logo": "https://fairfieldprogramming.org/logo.png"
-        })}
+        })}}>
         </script>
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
