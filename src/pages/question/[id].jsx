@@ -54,13 +54,13 @@ export default function QuestionPage({ serverData }) {
     "@type": "QAPage",
     "mainEntity": {
       "@type": "Question",
-      "name": serverData.title,
-      "text": serverData.body,
-      "answerCount": answers.length,
+      "name": serverData.title || "This post doesn't have a title...",
+      "text": serverData.body || "This post doesn't have any text...",
+      "answerCount": answers.length || 0,
       "upvoteCount": serverData.upvotes || 0,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": serverData.Answers[0].body,
+        "text": serverData.Answers[0].body || "This post doesn't have any text...",
         "upvoteCount": serverData.Answers[0].upvotes || 0,
         "url": `https://fairfieldprogramming.org/question/${serverData.id}`
         },
@@ -69,7 +69,7 @@ export default function QuestionPage({ serverData }) {
 
         return {
           "@type": "Answer",
-          "text": answer.body || "",
+          "text": answer.body || "This post doesn't have any text...",
           "upvoteCount": answer.upvotes || 0,
           "url": `https://fairfieldprogramming.org/question/${serverData.id}`
         };
