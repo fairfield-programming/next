@@ -9,4 +9,11 @@ exports.onCreatePage = async ({ page, actions: { createPage } }) => {
    
   }
 
+  if (page.path.match(/^\/question\//)) {
+
+    page.matchPath = "/question/*"
+    createPage(page);
+   
+  }
+
 };

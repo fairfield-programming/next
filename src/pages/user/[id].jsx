@@ -4,10 +4,12 @@ import { Helmet } from "react-helmet"
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 
+import Question from "../../components/question";
+
 import GenerateUser from "../../generators/User";
 
 /** @jsx jsx */
-import { Avatar, Link, Card, Heading, Text, jsx } from 'theme-ui';
+import { Avatar, Link, Spinner, Card, Heading, Text, jsx } from 'theme-ui';
 
 export function onRequestGet({ env, request }) {
     return env.ASSETS.fetch(
@@ -53,7 +55,7 @@ export default function UserPage({ serverData }) {
 
     console.log(userData);
 
-    const [ questions, setQuestions ] = useState([]);
+    const [ questions, setQuestions ] = useState(null);
     useEffect(() => {
 
       console.log(`https://fpa-questions.herokuapp.com/user/${userData.id}/questions`);
@@ -67,8 +69,6 @@ export default function UserPage({ serverData }) {
             return response.json();
 
         }).then((data) => {
-
-            console.log(data);
 
             setQuestions(data);
 
@@ -114,36 +114,17 @@ export default function UserPage({ serverData }) {
             px: 3,
             py: 4,
         }}>
-          <Heading as="h1">{ `${questions.length} Questions` }</Heading>
+          <Heading as="h1">{ `${(questions || { length: 0 }).length} Questions` }</Heading>
           <ul
             sx={{
               listStyle: 'none',
               display: 'grid',
               gridGap: 3,
-              gridTemplateColumns: 'repeat(auto-fit, minmax(256px, 1fr))',
+              gridTemplateColumns: '1fr',
             }}>
-            {questions.map((post) => (
-              <li key={post.id} sx={{}}>
-                <Heading
-                  sx={{
-                    m: 0,
-                  }}>
-                  <Link
-                    href={`/questions/${post.id}`}
-                    sx={{
-                      color: 'inherit',
-                      fontWeight: 'body',
-                      textDecoration: 'none',
-                      ':hover,:focus': {
-                        color: 'primary',
-                        textDecoration: 'underline',
-                      },
-                    }}>
-                    {post.body}
-                  </Link>
-                </Heading>
-              </li>
-            ))}
+            {(questions == null ? <Spinner /> : questions.map((post) => (
+              <Question data={post} />
+            )))}
           </ul>
         </div>
       </div>

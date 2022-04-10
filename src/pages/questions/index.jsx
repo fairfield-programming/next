@@ -1,11 +1,37 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 
+import Question from "../../components/question";
+
 /** @jsx jsx */
-import { Link, Divider, Grid, Card, Heading, Text, Button, Flex, NavLink, Box, jsx } from 'theme-ui';
+import { Link, Spinner, Divider, Grid, Card, Heading, Text, Button, Flex, NavLink, Box, jsx } from 'theme-ui';
 
 export default function QuestionsPage() {
+
+    let [ questions, setQuestions ] = useState(null);
+    let [ search, setSearch ] = useState('recent');
+
+    useEffect(() => {
+
+        let hash = window.location.hash.substring(1);
+        if (hash == 'recent') setSearch('recent');
+        if (hash == 'trending') setSearch('trending');
+        if (hash == 'unanswered') setSearch('unanswered');
+
+        fetch(`https://fpa-questions.herokuapp.com/question/${search}`).then(response => {
+
+            if (!response.ok) window.location.href = "/questions";
+    
+            return response.json();
+    
+        }).then(data => {
+    
+            setQuestions(data);
+    
+        });
+
+    }, [ search ]);
 
     return (
         <>
@@ -15,7 +41,7 @@ export default function QuestionsPage() {
                 mx: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
-                height: 700,
+                height: 600,
                 alignItems: 'center',
                 justifyContent: 'center',
                 space: 4
@@ -35,8 +61,8 @@ export default function QuestionsPage() {
                     gridGap: 1,
                     gridTemplateColumns: ['auto', '1fr 1fr'],
                 }}>
-                    <Button as="a" href="/signup" variant="buttons.primary">Answer a Question</Button>
-                    <Button as="a" href="/login" variant="buttons.secondary">Ask a Question</Button>
+                    <Button as="a" href="/questions/answer" variant="buttons.primary">Answer a Question</Button>
+                    <Button as="a" href="/questions/post" variant="buttons.secondary">Ask a Question</Button>
                 </div>
             </div>
             <Flex sx={{
@@ -44,33 +70,20 @@ export default function QuestionsPage() {
                 mx: 'auto',
             }}>
                 <Box p={2} sx={{ width: '300px' }}>
-                    <NavLink sx={{ width: '100%' }} href="#!" p={2}>
+                    {/* <NavLink sx={{ width: '100%' }} onClick={() => { setSearch('trending') }} href="/questions/#trending" p={2}>
                         📈 Trending
+                    </NavLink> */}
+                    <NavLink sx={{ width: '100%' }} onClick={() => { setSearch('recent') }} href="/questions/#recent" p={2}>
+                        🆕 Recent
                     </NavLink>
-                    <NavLink sx={{ width: '100%' }} href="#!" p={2}>
-                        🆕 New
-                    </NavLink>
-                    <NavLink sx={{ width: '100%' }} href="#!" p={2}>
+                    <NavLink sx={{ width: '100%' }} onClick={() => { setSearch('unanswered') }} href="/questions/#unanswered" p={2}>
                         🙋 Unanswered
                     </NavLink>
                 </Box>
-                <Box p={2} sx={{ width: '100%' }}>
-                    <Card p={4} variant="cards.bordered">
-                        <Heading>Lorem Ipusm</Heading>
-                        <Text>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur voluptas iusto fuga deserunt ut culpa reiciendis sunt maxime voluptates beatae! Inventore, expedita et similique consequatur atque reprehenderit? At, maxime laborum.</Text>
-                        <Divider sx={{ color: 'background' }} />
-                        <Grid gap={2} columns={[3, '1fr 1fr 1fr']}>
-                            <Text sx={{textAlign: "center"}}>3 Comments</Text>
-                            <Text sx={{textAlign: "center"}}>0 Answers</Text>
-                            <Text sx={{textAlign: "center"}}>32 Points</Text>
-                        </Grid>
-                    </Card>
-                    <Card p={4} variant="cards.bordered">
-                        Centered container
-                    </Card>
-                    <Card p={4} variant="cards.bordered">
-                        Centered container
-                    </Card>
+                <Box p={2} sx={{ width: '100%', display: 'block', minHeight: 50, alignItems: 'center', justifyContent: 'center' }}>
+                    { (questions == null ? <Spinner /> : questions.map((post) => (
+                        <Question data={post} />
+                    ))) }
                 </Box>
             </Flex>
             <Footer />
