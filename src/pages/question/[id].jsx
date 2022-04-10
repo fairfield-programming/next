@@ -89,7 +89,7 @@ export default function QuestionPage({ serverData }) {
       </Helmet>
       <Box sx={{ marginTop: 80, maxWidth: 1000, mx: 'auto', p: 4 }}>
           <Heading as="h1">{ serverData.title }</Heading>
-          <Text>{ serverData.body }</Text>
+          <Text>{ serverData.body || "This question doesn't have a description..." }</Text>
           <Box sx={{ height: 60 }} /> 
           <Heading as="h2">{(answers.length == 0) ? "No " : "" }Answers</Heading>
           <div>
