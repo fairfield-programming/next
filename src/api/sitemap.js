@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     const questions = await questionResponse.json();
 
     const usersResponse = await fetch('https://fairfield-programming.herokuapp.com/user');
-    const users = await questionResponse.json();
+    const users = await usersResponse.json();
 
     questions.forEach((item) => {
 
