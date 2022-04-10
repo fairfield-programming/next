@@ -1938,10 +1938,20 @@
   "resolved" "https://registry.npmjs.org/@react-dnd/asap/-/asap-4.0.1.tgz"
   "version" "4.0.1"
 
+"@react-dnd/asap@^5.0.0":
+  "integrity" "sha512-czNGSkNPZgxapKz1a8zj/C5me5MpVpN4wlXDQIMF4wDUuFJ37x7beakc4S7C1xKilHA4tgT9zZb4U64BdT/E5g=="
+  "resolved" "https://registry.npmjs.org/@react-dnd/asap/-/asap-5.0.0.tgz"
+  "version" "5.0.0"
+
 "@react-dnd/invariant@^2.0.0":
   "integrity" "sha512-xL4RCQBCBDJ+GRwKTFhGUW8GXa4yoDfJrPbLblc3U09ciS+9ZJXJ3Qrcs/x2IODOdIE5kQxvMmE2UKyqUictUw=="
   "resolved" "https://registry.npmjs.org/@react-dnd/invariant/-/invariant-2.0.0.tgz"
   "version" "2.0.0"
+
+"@react-dnd/invariant@^4.0.0":
+  "integrity" "sha512-tjPrh294NbH6Gj1YP1of6JYEe3+sm0Wy7YA1ImG6YghlZe3n8F+fBx1yIrA5dVJCuUh6pBp4XO7/lcSq7oLL0A=="
+  "resolved" "https://registry.npmjs.org/@react-dnd/invariant/-/invariant-4.0.0.tgz"
+  "version" "4.0.0"
 
 "@react-dnd/shallowequal@^2.0.0":
   "integrity" "sha512-Pc/AFTdwZwEKJxFJvlxrSmGe/di+aAOBn60sremrpLo6VI/6cmiUYNNwlI5KNYttg7uypzA3ILPMPgxB2GYZEg=="
@@ -4326,6 +4336,15 @@
   "version" "3.0.1"
   dependencies:
     "path-type" "^4.0.0"
+
+"dnd-core@^16.0.0":
+  "integrity" "sha512-8cGtybb5LBjG2euYgVv3amk49F+9dH3l5TuuGQf0mhFr+KWIPE1qPxB8VpPDov74ZevUAxVDxadL2zN7I0oQ1Q=="
+  "resolved" "https://registry.npmjs.org/dnd-core/-/dnd-core-16.0.0.tgz"
+  "version" "16.0.0"
+  dependencies:
+    "@react-dnd/asap" "^5.0.0"
+    "@react-dnd/invariant" "^4.0.0"
+    "redux" "^4.1.2"
 
 "dnd-core@14.0.1":
   "integrity" "sha512-+PVS2VPTgKFPYWo3vAFEA8WPbTf7/xo43TifH9G8S1KqnrQu0o77A3unrF5yOugy4mIz7K5wAVFHUcha7wsz6A=="
@@ -8610,12 +8629,12 @@
     "strip-ansi" "6.0.0"
     "text-table" "0.2.0"
 
-"react-dnd-html5-backend@^14.0.0":
-  "integrity" "sha512-6ONeqEC3XKVf4eVmMTe0oPds+c5B9Foyj8p/ZKLb7kL2qh9COYxiBHv3szd6gztqi/efkmriywLUVlPotqoJyw=="
-  "resolved" "https://registry.npmjs.org/react-dnd-html5-backend/-/react-dnd-html5-backend-14.1.0.tgz"
-  "version" "14.1.0"
+"react-dnd-html5-backend@^14.0.0", "react-dnd-html5-backend@^16.0.0":
+  "integrity" "sha512-be3lKEbbT8FQcoTjFlQ4ZXG/NVrFNJu9W0INc5rm/5EFQpHCkz+xpbB2U8j9uh5Bvk7AsJyQrZznEut0hrNPIA=="
+  "resolved" "https://registry.npmjs.org/react-dnd-html5-backend/-/react-dnd-html5-backend-16.0.0.tgz"
+  "version" "16.0.0"
   dependencies:
-    "dnd-core" "14.0.1"
+    "dnd-core" "^16.0.0"
 
 "react-dnd@^14.0.2", "react-dnd@^14.0.5":
   "integrity" "sha512-9i1jSgbyVw0ELlEVt/NkCUkxy1hmhJOkePoCH713u75vzHGyXhPDm28oLfc2NMSBjZRM1Y+wRjHXJT3sPrTy+A=="
@@ -8772,7 +8791,7 @@
   "resolved" "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.4.1.tgz"
   "version" "2.4.1"
 
-"redux@^4", "redux@^4.1.1", "redux@4.1.2":
+"redux@^4", "redux@^4.1.1", "redux@^4.1.2", "redux@4.1.2":
   "integrity" "sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw=="
   "resolved" "https://registry.npmjs.org/redux/-/redux-4.1.2.tgz"
   "version" "4.1.2"
