@@ -60,12 +60,12 @@ export default function QuestionPage({ serverData }) {
       "upvoteCount": serverData.upvotes || 0,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": serverData.answers[0].body,
-        "upvoteCount": serverData.answers[0].upvotes || 0,
+        "text": serverData.Answers[0].body,
+        "upvoteCount": serverData.Answers[0].upvotes || 0,
         "url": `https://fairfieldprogramming.org/question/${serverData.id}`
         },
       "suggestedAnswer": 
-      serverData.answers.map((answer) => {
+      serverData.Answers.map((answer) => {
 
         return {
           "@type": "Answer",
