@@ -9,40 +9,52 @@ export default async function handler(req, res) {
         { url: "/learn", changefreq: 'monthly', priority: 0.7 },
     ];
 
-    fetch('https://fpa-questions.herokuapp.com/question').then(response => response.json()).then((data) => {
+    const questionResponse = await fetch('https://fpa-questions.herokuapp.com/question');
+    const questions = await questionResponse.json();
 
-        data.forEach((item) => {
+    const usersResponse = await fetch('https://fairfield-programming.herokuapp.com/user');
+    const users = await questionResponse.json();
 
-            urls.push({
-                url: '/question/' + item.id,
-                changefreq: 'daily',
-                priority: 0.5
-            });
+    questions.forEach((item) => {
 
+        urls.push({
+            url: '/question/' + item.id,
+            changefreq: 'daily',
+            priority: 0.5
         });
 
-        let output = `<?xml version="1.0" encoding="UTF-8"?>`;
-        output += (`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`);
+    });
 
-        urls.forEach((url) => {
+    users.forEach((item) => {
 
-            let month = new Date().getMonth() + 1;
-            if (month < 10) month = "0" + month;
-
-            output += (`<url>`);
-            output += (`<loc>${domain}${url.url}</loc>`)
-            output += (`<lastmod>${new Date().getFullYear()}-${month}-${new Date().getDate()}</lastmod>`);
-            output += (`<priority>${url.priority}</priority>`);
-            output += (`<changefreq>${url.changefreq}</changefreq>`);
-            output += (`</url>`);
-
+        urls.push({
+            url: '/user/' + item.id,
+            changefreq: 'daily',
+            priority: 0.5
         });
-
-        output += (`</urlset>`);
-
-        res.setHeader('Content-Type', 'text/xml');
-        res.send(output);
 
     })
+
+    let output = `<?xml version="1.0" encoding="UTF-8"?>`;
+    output += (`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`);
+
+    urls.forEach((url) => {
+
+        let month = new Date().getMonth() + 1;
+        if (month < 10) month = "0" + month;
+
+        output += (`<url>`);
+        output += (`<loc>${domain}${url.url}</loc>`)
+        output += (`<lastmod>${new Date().getFullYear()}-${month}-${new Date().getDate()}</lastmod>`);
+        output += (`<priority>${url.priority}</priority>`);
+        output += (`<changefreq>${url.changefreq}</changefreq>`);
+        output += (`</url>`);
+
+    });
+
+    output += (`</urlset>`);
+
+    res.setHeader('Content-Type', 'text/xml');
+    res.send(output);
 
 }
