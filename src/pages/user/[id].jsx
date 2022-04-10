@@ -79,7 +79,10 @@ export default function UserPage({ serverData }) {
     return (<>
       <Helmet>
         <title>{ `${userData.firstname} ${userData.lastname} - The Fairfield Programming Association` }</title>
-        <link rel="canonical" href={`http://fairfieldprogramming.org/user/${userData.id}`} />
+        <meta property="og:title" content={ `${userData.firstname} ${userData.lastname} - The Fairfield Programming Association` } />
+        <link rel="canonical" href={`https://fairfieldprogramming.org/user/${userData.id}`} />
+        <meta property="og:url" content={`https://fairfieldprogramming.org/user/${userData.id}`} />
+        <meta property="og:description" content={userData.biography} />
       </Helmet>
       <Header />
       <div sx={{

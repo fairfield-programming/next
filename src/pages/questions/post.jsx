@@ -31,6 +31,13 @@ export default function PostQuestionPage() {
 
     return (
         <>
+            <Helmet>
+                <title>{ `Answer a Question - The Fairfield Programming Association` }</title>
+                <meta property="og:title" content={ `Answer a Question - The Fairfield Programming Association` } />
+                <link rel="canonical" href={`https://fairfieldprogramming.org/questions/post`} />
+                <meta property="og:url" content={`https://fairfieldprogramming.org/questions/post`} />
+                <meta property="og:description" content={"Post a question that has been eating you up for a while and someone else will go and answer it."} />
+            </Helmet>
             <Header />
                 <div sx={{
                     maxWidth: 600,

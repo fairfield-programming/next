@@ -31,6 +31,13 @@ export default function AnswerQuestionPage() {
         alignItems: 'center',
         justifyContent: 'center'
     }}>
+        <Helmet>
+            <title>{ `Answer a Question - The Fairfield Programming Association` }</title>
+            <meta property="og:title" content={ `Answer a Question - The Fairfield Programming Association` } />
+            <link rel="canonical" href={`https://fairfieldprogramming.org/questions/answer`} />
+            <meta property="og:url" content={`https://fairfieldprogramming.org/questions/answer`} />
+            <meta property="og:description" content={"Answer a question that has been asked by another Fairfield Programming Association member."} />
+        </Helmet>
         <Spinner />
     </Flex> );
     
