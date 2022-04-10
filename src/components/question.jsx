@@ -22,7 +22,7 @@ export default function Question({ data }) {
 
     return (<Card p={4} as="a" href={questionLink} sx={{ display: 'block', width: '100%', textDecoration: 'none', color: 'inherit' }} variant="cards.bordered">
         <Heading>{ questionData.title }</Heading>
-        <Text>{ questionData.body }</Text>
+        <Text>{ questionData.body || "This question doesn't have a description..." }</Text>
         <Grid gap={2} columns={[3, '1fr 1fr 1fr']}>
             <Text sx={{textAlign: "center"}}>{ commentsText }</Text>
             <Text sx={{textAlign: "center"}}>{ answersText }</Text>
