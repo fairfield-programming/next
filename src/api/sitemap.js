@@ -37,7 +37,7 @@ export default async function handler(req, res) {
 
         output += (`</urlset>`);
 
-        res.set('Content-Type', 'text/xml');
+        res.setHeader('Content-Type', 'text/xml');
         res.send(output);
 
     })
