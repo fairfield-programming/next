@@ -8,7 +8,9 @@ export default function AnswerQuestionPage() {
 
     fetch('https://fpa-questions.herokuapp.com/question/unanswered').then((response) => {
 
-        if (!response.ok) window.location.href = "/questions";
+        if (!response.ok) 
+            if (typeof window !== "undefined")    
+                window.location.href = "/questions";
 
         return response.json();
 
