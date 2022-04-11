@@ -78,22 +78,25 @@ export default function QuestionsPage() {
             <Flex sx={{
                 maxWidth: 1000,
                 mx: 'auto',
+                p: 4
             }}>
-                <Box p={2} sx={{ width: '300px' }}>
-                    {/* <NavLink sx={{ width: '100%' }} onClick={() => { setSearch('trending') }} href="/questions/#trending" p={2}>
-                        📈 Trending
-                    </NavLink> */}
-                    <NavLink sx={{ width: '100%' }} onClick={() => { setSearch('recent') }} href="/questions/#recent" p={2}>
-                        🆕 Recent
-                    </NavLink>
-                    <NavLink sx={{ width: '100%' }} onClick={() => { setSearch('unanswered') }} href="/questions/#unanswered" p={2}>
-                        🙋 Unanswered
-                    </NavLink>
-                </Box>
-                <Box p={2} sx={{ width: '100%', display: 'block', minHeight: 50, alignItems: 'center', justifyContent: 'center' }}>
+                <Box p={2} sx={{ width: '70%', display: 'block', alignItems: 'center', justifyContent: 'center' }}>
                     { (questions == null ? <Spinner /> : questions.map((post) => (
                         <Question data={post} />
                     ))) }
+                </Box>
+                <Box py={2} sx={{ width: '30%', display: 'block', alignItems: 'center', justifyContent: 'center' }}>
+                    <Card p={2} sx={{ boxSizing: 'border-box', minHeight: '400px', width: '100%' }} variant="cards.bordered">
+                        <NavLink sx={{ width: '100%' }} onClick={() => { setSearch('trending') }} href="/questions/#trending" p={2}>
+                            📈 Trending
+                        </NavLink>
+                        <NavLink sx={{ width: '100%' }} onClick={() => { setSearch('recent') }} href="/questions/#recent" p={2}>
+                            🆕 Recent
+                        </NavLink>
+                        <NavLink sx={{ width: '100%' }} onClick={() => { setSearch('unanswered') }} href="/questions/#unanswered" p={2}>
+                            🙋 Unanswered
+                        </NavLink>
+                    </Card>
                 </Box>
             </Flex>
             <Footer />

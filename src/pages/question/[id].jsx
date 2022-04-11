@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from "react-helmet"
 
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 
 /** @jsx jsx */
-import { Box, Card, Heading, Text, jsx, Divider } from 'theme-ui';
+import { Box, Avatar, Card, Heading, Text, Flex, NavLink,  jsx, Divider, Spinner } from 'theme-ui';
 
 export function onRequestGet({ env, request }) {
     return env.ASSETS.fetch(
@@ -45,6 +45,19 @@ export async function getServerData(context) {
 
 }
 
+
+// QUESTIONS SHOULD HAVE REACTIONS 
+// - SIMILAR TO DISCORD EMOJIS
+// STANDARDIZE ALL QUESTION PAGES SO THEY FOLLOW [MAIN-SIDEBAR](75%-25%) LAYOUT
+// Add user info under each answer
+// Make comment system as easy and delicous as possible
+// More comments means more interaction and content
+// Under question, maybe make user info large
+
+// Comment ui should not be inside box, it should be directly under it
+// this will allow you to add comments inbetween answer and the comment input
+// cleans up ui so less hierarchicile shadow boxes
+
 export default function QuestionPage({ serverData }) {
 
   let answers = serverData.Answers;
@@ -60,8 +73,8 @@ export default function QuestionPage({ serverData }) {
       "upvoteCount": serverData.upvotes || 0,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": serverData.Answers[0].body || "This post doesn't have any text...",
-        "upvoteCount": serverData.Answers[0].upvotes || 0,
+        "text": (serverData.Answers[0] || { body: "" }).body || "This post doesn't have any text...",
+        "upvoteCount": (serverData.Answers[0] || { upvotes: 0 } ).upvotes,
         "url": `https://fairfieldprogramming.org/question/${serverData.id}`
         },
       "suggestedAnswer": 
@@ -78,6 +91,22 @@ export default function QuestionPage({ serverData }) {
     }
   };
 
+  let [ related, setRelated ] = useState(null);
+
+  useEffect(() => {
+
+    fetch(`https://fpa-questions.herokuapp.com/question/${serverData.id}/related`).then((response) => {
+
+      return response.json();
+
+    }).then((data) => {
+
+      setRelated(data);
+
+    })
+
+  }, [])
+
   return (<>
       <Header />
       <Helmet>
@@ -92,22 +121,59 @@ export default function QuestionPage({ serverData }) {
         </script>
       </Helmet>
       <Box sx={{ marginTop: 80, maxWidth: 1000, mx: 'auto', p: 4 }}>
-          <Heading as="h1">{ serverData.title }</Heading>
-          <Text>{ serverData.body || "This question doesn't have a description..." }</Text>
-          <Box sx={{ height: 60 }} /> 
-          <Heading as="h2">{(answers.length == 0) ? "No " : "" }Answers</Heading>
-          <div>
-            {
-              answers.map((answer) => {
+        <Flex sx={{
+                maxWidth: 1200,
+                mx: 'auto',
+            }}>
+          <Box p={2} sx={{ width: '75%', display: 'block', alignItems: 'center', justifyContent: 'center' }}>
+            <Card >
+              <Heading as="h1">{ serverData.title }</Heading>
+              <Text>{ serverData.body || "This question doesn't have a description..." }</Text>
+              <Box sx={{ height: 60 }} /> 
+              <Heading as="h2">{(answers.length == 0) ? "No " : "" }Answers</Heading>
+              <div>
+                {
+                  answers.map((answer) => {
 
-                return <Card variant="bordered">
-                  <Text>{ answer.body }</Text>
-                </Card>
+                    return <Card variant="bordered">
+                      <Flex as="a" href={`/user/${answer.user}`} sx={{ textDecoration: 'none', color: 'inherit', width: '100%', height: '40px', alignItems: "center", justifyContent: "flex-end", flexDirection: 'row' }} alignItems={"center"} justifyContent={"center"}>
+                        <Text mx={2}>User #{answer.user}</Text>
+                        <Avatar size={30} src="https://placebear.com/300/300"></Avatar>
+                      </Flex>
+                      <Text>{ answer.body }</Text>
+                    </Card>
 
-              })
-            }
-          </div>
-          <Box sx={{ height: 200 }} /> 
+                  })
+                }
+              </div>
+              <Box sx={{ height: 200 }} />
+            </Card>
+          </Box>
+          <Box py={2} sx={{ width: '25%', display: 'block', alignItems: 'center', justifyContent: 'center' }}>
+            <Card p={2} sx={{ boxSizing: 'border-box', minHeight: '400px', width: '100%' }} variant="cards.bordered">
+                <NavLink sx={{ width: '100%' }} onClick={() => { ('trending') }} href="/questions/#trending" p={2}>
+                    📈 Trending
+                </NavLink>
+                <NavLink sx={{ width: '100%' }} onClick={() => { ('recent') }} href="/questions/#recent" p={2}>
+                    🆕 Recent
+                </NavLink>
+                <NavLink sx={{ width: '100%' }} onClick={() => { ('unanswered') }} href="/questions/#unanswered" p={2}>
+                    🙋 Unanswered
+                </NavLink>
+                <Divider color={'transparent'} sx={{ background: 'background' }}></Divider>
+                <Heading as={'h3'}>Related</Heading>
+                <div sx={{ width: "100%", minHeight: 40, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+                  {(related != null) ? related.slice(0, 5).map((item) => {
+
+                    return (
+                      <Text py={2} sx={{ display: "block", width: '100%', fontSize: 1, textDecoration: 'none' }} as={'a'} href={"/question/" + item.id}>{ item.title }</Text>
+                    );
+
+                  }) : <Spinner size={20} /> }
+                </div>
+            </Card>
+          </Box>
+        </Flex> 
       </Box>
       <Footer />
   </>);
