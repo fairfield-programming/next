@@ -42,6 +42,7 @@ export default function QuestionsPage() {
                 <meta property="og:title" content={ `Questions - The Fairfield Programming Association` } />
                 <link rel="canonical" href={`https://fairfieldprogramming.org/questions`} />
                 <meta property="og:url" content={`https://fairfieldprogramming.org/questions`} />
+                <meta property="description" content={"Ask any question you want, and someone will go out and answer it!"} />
                 <meta property="og:description" content={"Ask any question you want, and someone will go out and answer it!"} />
             </Helmet>
             <Header />

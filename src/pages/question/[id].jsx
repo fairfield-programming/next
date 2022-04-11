@@ -85,6 +85,7 @@ export default function QuestionPage({ serverData }) {
         <meta property="og:title" content={ `${serverData.title} - The Fairfield Programming Association` } />
         <link rel="canonical" href={`http://fairfieldprogramming.org/question/${serverData.id}`} />
         <meta property="og:url" content={`http://fairfieldprogramming.org/question/${serverData.id}`} />
+        <meta property='description' content={serverData.body || "This question doesn't have a description..."} />
         <meta property="og:description" content={serverData.body || "This question doesn't have a description..."} />
         <script type="application/ld+json">
         {JSON.stringify(structuredData)}

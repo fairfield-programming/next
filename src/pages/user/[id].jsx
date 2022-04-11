@@ -82,6 +82,7 @@ export default function UserPage({ serverData }) {
         <meta property="og:title" content={ `${userData.firstname} ${userData.lastname} - The Fairfield Programming Association` } />
         <link rel="canonical" href={`https://fairfieldprogramming.org/user/${userData.id}`} />
         <meta property="og:url" content={`https://fairfieldprogramming.org/user/${userData.id}`} />
+        <meta name="description" content={userData} />
         <meta property="og:description" content={userData.biography} />
       </Helmet>
       <Header />

@@ -13,6 +13,7 @@ export default function AboutPage() {
             <meta property="og:title" content="About - The Fairfield Programming Association" />
             <link rel="canonical" href="https://fairfieldprogramming.org/about" />
             <meta property="og:url" content="https://fairfieldprogramming.org/about" />
+            <meta name="description" content="The Fairfield Programming Association is a open-source organization that runs programs and offers resources all to educate children in the area of computer science." />
             <meta property="og:description" content="The Fairfield Programming Association is a open-source organization that runs programs and offers resources all to educate children in the area of computer science." />
         </Helmet>
         <Header />

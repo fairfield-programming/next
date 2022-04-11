@@ -15,6 +15,7 @@ export default function HomePage() {
             <meta property="og:title" content="Home - The Fairfield Programming Association" />
             <link rel="canonical" href="https://fairfieldprogramming.org/" />
             <meta property="og:url" content="https://fairfieldprogramming.org/" />
+            <meta name="description" content="The Fairfield Programming Association is a open-source organization that runs programs and offers resources all to educate children in the area of computer science." />
             <meta property="og:description" content="The Fairfield Programming Association is a open-source organization that runs programs and offers resources all to educate children in the area of computer science." />
         </Helmet>
         <Header />
