@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet"
 
 import Header from "../../components/header";
 import Footer from "../../components/footer";
+import Answer from "../../components/answer";
 
 /** @jsx jsx */
 import { Box, Avatar, Card, Heading, Text, Flex, NavLink,  jsx, Divider, Spinner } from 'theme-ui';
@@ -135,13 +136,7 @@ export default function QuestionPage({ serverData }) {
                 {
                   answers.map((answer) => {
 
-                    return <Card variant="bordered">
-                      <Flex as="a" href={`/user/${answer.user}`} sx={{ textDecoration: 'none', color: 'inherit', width: '100%', height: '40px', alignItems: "center", justifyContent: "flex-end", flexDirection: 'row' }} alignItems={"center"} justifyContent={"center"}>
-                        <Text mx={2}>User #{answer.user}</Text>
-                        <Avatar size={30} src="https://placebear.com/300/300"></Avatar>
-                      </Flex>
-                      <Text>{ answer.body }</Text>
-                    </Card>
+                    return <Answer data={answer} />
 
                   })
                 }

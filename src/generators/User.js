@@ -13,7 +13,8 @@ export default function GenerateUser(userData) {
         lastname,
         profilePicture: userData.profilePicture,
         biography: userData.biography,
-        id: userData.id
+        id: userData.id,
+        fullname: `${firstname} ${lastname}`
     };
 
 }
