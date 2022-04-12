@@ -6,6 +6,18 @@ import Header from "../components/header";
 /** @jsx jsx */
 import { Text, Heading, Box, Button, Input, Label, Link, Grid, Card, jsx, Checkbox, Flex } from 'theme-ui';
 
+function formatUsername(text) {
+
+    return text.toLowerCase().replace(/ /g, '-').replace(/\_/g, '-');
+
+}
+
+function formatEmail(text) {
+
+    return text.toLowerCase().replace(/ /g, '-');
+
+}
+
 export default function SignupPage() {
 
     let [ termsAndPrivacyChecked, setTAPChecked ] = useState(false);
@@ -27,11 +39,11 @@ export default function SignupPage() {
                     <Heading mb={4} as={"h1"} sx={{ fontSize: 6 }}>Sign Up</Heading>
                     <Box my={3}>
                         <Text>Username</Text>
-                        <Input></Input>
+                        <Input onChange={(val) => { val.target.value = formatUsername(val.target.value) }}></Input>
                     </Box>
                     <Box my={3}>
                         <Text>Email</Text>
-                        <Input></Input>
+                        <Input onChange={(val) => { val.target.value = formatEmail(val.target.value) }}></Input>
                     </Box>
                     <Box my={3}>
                         <Text>Password</Text>
