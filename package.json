@@ -33,6 +33,7 @@
     "react-helmet": "^6.1.0",
     "react-tag-input": "^6.8.0",
     "theme-ui": "^0.14.2",
+    "universal-cookie": "^4.0.4",
     "yarn": "^1.22.18"
   },
   "devDependencies": {

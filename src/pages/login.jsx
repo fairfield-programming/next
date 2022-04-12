@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet"
 
-import Header from "../components/header";
+import Cookies from 'universal-cookie';
 
 /** @jsx jsx */
-import { Text, Heading, Box, Button, Input, Label, Link, Grid, Card, jsx, Checkbox, Flex } from 'theme-ui';
+import { Text, Heading, Message, Box, Button, Input, Label, Link, Grid, Card, jsx, Checkbox, Flex } from 'theme-ui';
+
+const cookies = new Cookies();
 
 function formatUsername(text) {
 
@@ -12,25 +14,80 @@ function formatUsername(text) {
 
 }
 
-function formatEmail(text) {
+function handleLoginSubmit({ username, password, stayLogged, setAlert }) {
 
-    return text.toLowerCase().replace(/ /g, '-');
+    let bodyData = {
+        username,
+        password,
+    };
+
+    fetch("https://fairfield-programming.herokuapp.com/user/login", {
+        method: 'POST',
+        body: JSON.stringify(bodyData),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then((response) => {
+
+        if (!response.ok) {
+
+            if (response.status == 404) {
+                
+                setAlert("Sorry, we can't find an account with that username"); 
+            
+            } else if (response.status == 403) { 
+                
+                setAlert("Sorry, that password isn't correct for the account with your username");
+
+            } else {
+
+                setAlert("Hey, there seems to be an error on our side. Try reloading the page.");
+
+            }
+
+            return response.text();
+
+        } else {
+
+            return response.json();
+            
+        }
+
+    }).then((data) => {
+
+        if (typeof data != 'object') return;
+
+        let token = data.token;
+
+        cookies.set("token", token);
+        cookies.set("userId", data.id);
+
+        if (typeof window != 'undefined')
+            window.location.href = "/user/" + data.id;
+
+    })
 
 }
 
 export default function LoginPage() {
 
     let [ stayLogged, setStayLogged ] = useState(false);
+    let [ username, setUsername ] = useState("");
+    let [ password, setPassword ] = useState("");
+
+    let [ alert, setAlert ] = useState("");
+
+    let alertText = (alert.length != 0) ? (<Message mt={3}><Text color={"primary"}>{alert}</Text></Message>) : (<></>);
 
     return (
         <>
         <Helmet>
-            <title>{ `Sign Up - The Fairfield Programming Association` }</title>
-            <meta property="og:title" content="Sign Up - The Fairfield Programming Association" />
-            <link rel="canonical" href="https://fairfieldprogramming.org/signup" />
-            <meta property="og:url" content="https://fairfieldprogramming.org/signup" />
-            <meta name="description" content="To create an account with the Fairfield Programming Association, simply fill out the form on this page! It's as easy as Pi." />
-            <meta property="og:description" content="To create an account with the Fairfield Programming Association, simply fill out the form on this page! It's as easy as Pi." />
+            <title>{ `Log In - The Fairfield Programming Association` }</title>
+            <meta property="og:title" content="Log In - The Fairfield Programming Association" />
+            <link rel="canonical" href="https://fairfieldprogramming.org/login" />
+            <meta property="og:url" content="https://fairfieldprogramming.org/login" />
+            <meta name="description" content="To sign into your Fairfield Programming Association account, fill in the form below and you are ready to go!" />
+            <meta property="og:description" content="To sign into your Fairfield Programming Association account, fill in the form below and you are ready to go!" />
         </Helmet>
         <Flex sx={{
             position: 'fixed',
@@ -41,17 +98,17 @@ export default function LoginPage() {
             flexDirection: 'row'
         }}>
             <Flex sx={{ width: "100%", height: "100%", alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-                <Box sx={{ p: 3, maxWidth: 450 }}>
+                <Box sx={{ p: 3, maxWidth: 450 }} as="form" onSubmit={(e) => {e.preventDefault(); handleLoginSubmit({ stayLogged, username, password, setAlert })}}>
                     <Box mt={4}>
                     </Box>
                     <Heading mb={4} as={"h1"} sx={{ fontSize: 6 }}>Log In</Heading>
                     <Box my={3}>
                         <Text>Username</Text>
-                        <Input onChange={(val) => { val.target.value = formatUsername(val.target.value) }}></Input>
+                        <Input onChange={(val) => { val.target.value = formatUsername(val.target.value); setUsername(val.target.value) }}></Input>
                     </Box>
                     <Box my={3}>
                         <Text>Password</Text>
-                        <Input></Input>
+                        <Input onChange={(val) => { setPassword(val.target.value) }}></Input>
                     </Box>
                     <Label mt={4} sx={{ width: "100%" }}>
                         <Checkbox checked={stayLogged} onChange={() => { setStayLogged(!stayLogged); }} />
@@ -61,6 +118,7 @@ export default function LoginPage() {
                         <Button mx={1} variant="primary">Continue to Profile</Button>
                         <Button mx={1} as="a" href="/" variant="secondary">Go Home</Button>
                     </Box>
+                    { alertText }
                     <Box mt={5}>
                         <Text>Want to make an account? <Link href="/signup">Sign Up</Link></Text>
                     </Box>

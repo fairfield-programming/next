@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet"
 
-import Header from "../components/header";
+import Cookies from 'universal-cookie';
 
 /** @jsx jsx */
-import { Text, Heading, Box, Button, Input, Label, Link, Grid, Card, jsx, Checkbox, Flex } from 'theme-ui';
+import { Text, Heading, Box, Message, Button, Input, Label, Link, Grid, Card, jsx, Checkbox, Flex } from 'theme-ui';
+
+const cookies = new Cookies();
 
 function formatUsername(text) {
 
@@ -18,9 +20,83 @@ function formatEmail(text) {
 
 }
 
+function handleSignupSubmit({ email, username, password, termsAndPrivacyChecked, setAlert }) {
+
+    if (!termsAndPrivacyChecked) {
+
+        setAlert("Please read and agree to the Terms of Service and Privacy Policy to create an account");
+        return;
+
+    }
+
+    let bodyData = {
+        username,
+        password,
+        email
+    };
+
+    fetch("https://fairfield-programming.herokuapp.com/user/signup", {
+        method: 'POST',
+        body: JSON.stringify(bodyData),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then((response) => {
+
+        if (!response.ok) {
+
+            if (response.status == 403) {
+
+                setAlert("An account with that username or email already exists");
+
+            } else {
+
+                setAlert("Hey, there seems to be an error on our side. Try reloading the page.");
+
+            }
+
+            return response.text();
+
+        } else {
+
+            return response.json();
+            
+        }
+
+    }).then((data) => {
+
+        if (typeof data != 'object') {
+         
+            if (data.toUpperCase().startsWith("USERNAME")) setAlert("Your username follows a bad format");
+            if (data.toUpperCase().startsWith("PASSWORD")) setAlert("Your password doesn't follow good security standards");
+            if (data.toUpperCase().startsWith("EMAIL")) setAlert("Your email isn't a correct email address");
+            return;
+
+        }
+
+        let token = data.token;
+
+        cookies.set("token", token);
+        cookies.set("userId", data.id);
+
+        if (typeof window != 'undefined')
+            window.location.href = "/user/" + data.id;
+
+    })
+
+}
+
 export default function SignupPage() {
 
     let [ termsAndPrivacyChecked, setTAPChecked ] = useState(false);
+
+    let [ username, setUsername ] = useState("");
+    let [ password, setPassword ] = useState("");
+    let [ email, setEmail ] = useState("");
+
+    let [ alert, setAlert ] = useState("");
+
+    let alertText = (alert.length != 0) ? (<Message mt={3}><Text color={"primary"}>{alert}</Text></Message>) : (<></>);
 
     return (
     <>
@@ -40,22 +116,22 @@ export default function SignupPage() {
             bottom: 0,
             flexDirection: 'row'
         }}>
-            <Flex sx={{ width: "100%", height: "100%", alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+            <Flex sx={{ width: "100%", height: "100%", alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }} as="form" onSubmit={(e) => {e.preventDefault(); handleSignupSubmit({ termsAndPrivacyChecked, email, username, password, setAlert })}}>
                 <Box sx={{ p: 3, maxWidth: 450 }}>
                     <Box mt={4}>
                     </Box>
                     <Heading mb={4} as={"h1"} sx={{ fontSize: 6 }}>Sign Up</Heading>
                     <Box my={3}>
                         <Text>Username</Text>
-                        <Input onChange={(val) => { val.target.value = formatUsername(val.target.value) }}></Input>
+                        <Input onChange={(val) => { val.target.value = formatUsername(val.target.value); setUsername(val.target.value) }}></Input>
                     </Box>
                     <Box my={3}>
                         <Text>Email</Text>
-                        <Input onChange={(val) => { val.target.value = formatEmail(val.target.value) }}></Input>
+                        <Input onChange={(val) => { val.target.value = formatEmail(val.target.value); setEmail(val.target.value) }}></Input>
                     </Box>
                     <Box my={3}>
                         <Text>Password</Text>
-                        <Input></Input>
+                        <Input onChange={(val) => { setPassword(val.target.value) }}></Input>
                     </Box>
                     <Label mt={4} sx={{ width: "100%" }}>
                         <Checkbox checked={termsAndPrivacyChecked} onChange={() => { setTAPChecked(!termsAndPrivacyChecked); }} />
@@ -65,6 +141,7 @@ export default function SignupPage() {
                         <Button mx={1} variant="primary">Create Account</Button>
                         <Button mx={1} as="a" href="/" variant="secondary">Go Home</Button>
                     </Box>
+                    { alertText }
                     <Box mt={5}>
                         <Text>Already have an account? <Link href="/login">Log In</Link></Text>
                     </Box>
