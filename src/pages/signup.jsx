@@ -24,6 +24,14 @@ export default function SignupPage() {
 
     return (
     <>
+        <Helmet>
+            <title>{ `Sign Up - The Fairfield Programming Association` }</title>
+            <meta property="og:title" content="Sign Up - The Fairfield Programming Association" />
+            <link rel="canonical" href="https://fairfieldprogramming.org/signup" />
+            <meta property="og:url" content="https://fairfieldprogramming.org/signup" />
+            <meta name="description" content="To create an account with the Fairfield Programming Association, simply fill out the form on this page! It's as easy as Pi." />
+            <meta property="og:description" content="To create an account with the Fairfield Programming Association, simply fill out the form on this page! It's as easy as Pi." />
+        </Helmet>
         <Flex sx={{
             position: 'fixed',
             left: 0,
