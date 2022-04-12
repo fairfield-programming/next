@@ -64,13 +64,13 @@ export default function Question({ data }) {
         </Grid>
     </Card>
     <Box>
-        <Card sx={{ maxWidth: "90%", mx: 'auto', my: 0, py: 3, px: 3 }} variant={'bordered'}>
+        {/* <Card sx={{ maxWidth: "90%", mx: 'auto', my: 0, py: 3, px: 3 }} variant={'bordered'}>
             <Flex as="a" href={`/user/${answer.user}`} sx={{ mb: 0, textDecoration: 'none', color: 'inherit', width: '100%', alignItems: "center", justifyContent: "flex-end", flexDirection: 'row' }} alignItems={"center"} justifyContent={"center"}>
                 <Text mx={2} fontSize={1}>{userData.fullname}</Text>
                 <Avatar size={26} src={userData.profilePicture || "https://placebear.com/300/300"}></Avatar>
             </Flex>
             <Text sx={{ fontSize: 1, textAlign: 'justify', width: '100%', mb: 0, pb: 0 }}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita, modi explicabo? Optio dicta vero dolore? Ea, tempore! Corporis quod omnis ullam deserunt totam unde rem itaque, eveniet dolor nobis perspiciatis?</Text>
-        </Card>
+        </Card> */}
     </Box>
   </>);
 
