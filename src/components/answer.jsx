@@ -50,7 +50,6 @@ export default function Question({ data }) {
                 <Text mx={1}> { pointsText }</Text>
                 <Link onclick={() => {}} sx={{ "&:hover": { fill: "#32CD32", cursor: 'pointer' }, fill: "#666" }}>
                     <svg width="24" height="24" viewBox=" 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        {/* <path d="M9.98242 15H8.61035V9.8291C8.10905 10.2979 7.51823 10.6445 6.83789 10.8691V9.62402C7.19596 9.50684 7.58496 9.28548 8.00488 8.95996C8.4248 8.63118 8.71289 8.2487 8.86914 7.8125H9.98242V15ZM13.4033 13.9697V12.1094H11.5283V10.8252H13.4033V8.96484H14.6533V10.8252H16.5332V12.1094H14.6533V13.9697H13.4033Z"/> */}
                         <path d="M12 3L19.7942 16.5H4.20577L12 3Z" />
                     </svg>
                 </Link>

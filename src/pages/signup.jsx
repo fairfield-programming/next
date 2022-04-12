@@ -63,7 +63,7 @@ export default function SignupPage() {
                     </Label>
                     <Box mt={4}>
                         <Button mx={1} variant="primary">Create Account</Button>
-                        {/* <Button mx={1} variant="secondary">Log In</Button> */}
+                        <Button mx={1} as="a" href="/" variant="secondary">Go Home</Button>
                     </Box>
                     <Box mt={5}>
                         <Text>Already have an account? <Link href="/login">Log In</Link></Text>
