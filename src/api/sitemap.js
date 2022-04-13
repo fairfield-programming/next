@@ -30,7 +30,7 @@ export default async function handler(req, res) {
         urls.push({
             url: '/user/' + item.id,
             changefreq: 'daily',
-            priority: 0.5
+            priority: 0.2
         });
 
     })
