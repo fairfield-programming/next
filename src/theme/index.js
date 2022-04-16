@@ -92,6 +92,7 @@ export default {
   ],
   colors: {
     text: "#333",
+    text01: "#666",
     background: "#fff",
     background01: '#fafafa',
     background02: '#f5f5f5',
