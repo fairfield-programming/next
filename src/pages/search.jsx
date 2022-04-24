@@ -34,10 +34,10 @@ export default function HomePage() {
 
     return (<>
         <Helmet>
-            <title>{ `Home - The Fairfield Programming Association` }</title>
-            <meta property="og:title" content="Home - The Fairfield Programming Association" />
-            <link rel="canonical" href="https://fairfieldprogramming.org/" />
-            <meta property="og:url" content="https://fairfieldprogramming.org/" />
+            <title>{ `Search - The Fairfield Programming Association` }</title>
+            <meta property="og:title" content="Search - The Fairfield Programming Association" />
+            <link rel="canonical" href="https://fairfieldprogramming.org/search" />
+            <meta property="og:url" content="https://fairfieldprogramming.org/search" />
             <meta name="description" content="The Fairfield Programming Association is a open-source organization that runs programs and offers resources all to educate children in the area of computer science." />
             <meta property="og:description" content="The Fairfield Programming Association is a open-source organization that runs programs and offers resources all to educate children in the area of computer science." />
         </Helmet>
