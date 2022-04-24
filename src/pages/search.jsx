@@ -9,14 +9,16 @@ import { Text, Heading, Input, Button, Grid, Card, Flex, jsx } from 'theme-ui';
 
 export default function HomePage() {
 
-    const params = new URLSearchParams(window.location.search);
+    const isBrowser = () => typeof window !== "undefined"
+
+    const params = new URLSearchParams(isBrowser() ? window.location.search : "/");
 
     let [ searchResults, setSearchResults ] = useState([]); 
     let [ searchQuery, setSearchQuery ] = useState(params.get("q") || ''); 
 
     useEffect(() => {
 
-        window.history.pushState({}, null, window.location.pathname + "?q=" + encodeURIComponent(searchQuery));
+        if (isBrowser()) window.history.pushState({}, null, window.location.pathname + "?q=" + encodeURIComponent(searchQuery));
 
         fetch('/api/search?q=' + encodeURIComponent(searchQuery)).then(response => {
 
