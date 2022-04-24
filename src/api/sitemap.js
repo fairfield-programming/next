@@ -7,6 +7,11 @@ export default async function handler(req, res) {
         { url: "/", changefreq: 'monthly', priority: 1.0 },
         { url: "/questions", changefreq: 'monthly', priority: 0.7 },
         { url: "/learn", changefreq: 'monthly', priority: 0.7 },
+        { url: "/signup", changefreq: 'monthly', priority: 0.7 },
+        { url: "/login", changefreq: 'monthly', priority: 0.7 },
+        { url: "/about", changefreq: 'monthly', priority: 0.7 },
+        { url: "/privacy", changefreq: 'monthly', priority: 0.7 },
+        { url: "/terms", changefreq: 'monthly', priority: 0.7 },
     ];
 
     const questionResponse = await fetch('https://fpa-questions.herokuapp.com/question');

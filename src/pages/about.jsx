@@ -40,7 +40,7 @@ export default function AboutPage() {
                 fontWeight: '300',
                 my: 3
             }}>
-                The Fairfield Programming Association is an organization with one goal: educate the world about computer science. If you would like to learn how we do this, read about what we've done below.
+                The Fairfield Programming Association is an organization with one goal: educate the world about computer science. If you would like to learn how we do this, you can read about what we've done below.
             </Text> 
             
         </div>
