@@ -15,6 +15,19 @@ export default function HTML(props) {
         />
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
           "@context": "https://schema.org",
+          "@type": "WebSite",
+          "url": "https://fairfieldprogramming.org/",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://fairfieldprogramming.org/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        })}}></script>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+          "@context": "https://schema.org",
           "@type": "Organization",
           "url": "https://fairfieldprogramming.org",
           "logo": "https://fairfieldprogramming.org/logo.png"
