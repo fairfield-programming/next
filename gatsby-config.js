@@ -1,6 +1,4 @@
-import type { GatsbyConfig } from "gatsby";
-
-const config: GatsbyConfig = {
+const config = {
   plugins: [
       {
       resolve: `gatsby-plugin-theme-ui`,
@@ -13,4 +11,4 @@ const config: GatsbyConfig = {
   ]
 };
 
-export default config;
+module.exports = config;

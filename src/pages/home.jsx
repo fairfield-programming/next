@@ -48,39 +48,6 @@ export default function HomePage() {
                 <Button as="a" href="/login" variant="buttons.secondary">Login</Button>
             </div>
         </div>
-        <Grid gap={2} columns={'1fr 1fr'} sx={{
-            maxWidth: 800,
-            mx: 'auto'
-        }}>
-            <Card sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column'
-            }}>
-                <Heading>Education Resources</Heading>
-                <Text sx={{ my: 3, textAlign: 'justify' }}>We offer educational resources in the forms of articles, videos, and interactive quizzes that can enhance your knowledge of computer science. All of these resources are availible under a modified-ISC license.</Text>
-                <Button variant="buttons.secondary">Check Them Out</Button>
-            </Card>
-            <Card sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column'
-            }}>
-                <Heading>Coding Competitions</Heading>
-                <Text sx={{ my: 3, textAlign: 'justify' }}>Our coding competitions are a collaborative effort between all of the highschools in the Fairfield County area. They are run by students, and we hope to expand to the wider Northeast soon.</Text>
-                <Button variant="buttons.secondary">Learn More</Button>
-            </Card>
-            <Card sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column'
-            }}>
-                <Heading>Hour of Code</Heading>
-                <Text sx={{ my: 3, textAlign: 'justify' }}>Many people do not have wide access to computers or devices to access our digital content. It is our mission to teach those who may not have access to learning devices, how to code.</Text>
-                <Button variant="buttons.secondary">How Can I help?</Button>
-            </Card>
-            <Card></Card>
-        </Grid>
         <Footer />
     </>);
 

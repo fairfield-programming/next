@@ -59,14 +59,14 @@ export default function Topbar() {
                 alignItems: 'center',
                 justifyContent: 'flex-start',
                 }}>
-                <Link
+                {/* <Link
                 href="/learn"
                 sx={{
                     variant: 'links.navlink',
                     p: 2,
                 }}>
                 Learning
-                </Link>
+                </Link> */}
                 <Link
                 href="/questions"
                 sx={{
