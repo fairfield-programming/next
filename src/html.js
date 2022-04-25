@@ -13,6 +13,14 @@ export default function HTML(props) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-216146809-1">
+        </script>
+        <script dangerouslySetInnerHTML={{__html: `window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-216146809-1');`}}>
+        </script>
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",

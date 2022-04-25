@@ -36,13 +36,14 @@ export default function HomePage() {
             <Text sx={{
                 fontSize: 3,
                 fontWeight: '300',
-                my: 3
+                my: 3,
+                px: 3
             }}>The Fairfield Programming Association is a open-source organization that runs programs and offers resources all to educate children in the area of computer science.</Text>
             
             <div sx={{
                 display: 'grid',
                 gridGap: 1,
-                gridTemplateColumns: ['auto', '1fr 1fr'],
+                gridTemplateColumns: '1fr 1fr',
             }}>
                 <Button as="a" href="/signup" variant="buttons.primary">Signup</Button>
                 <Button as="a" href="/login" variant="buttons.secondary">Login</Button>
