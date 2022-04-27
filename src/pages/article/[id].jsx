@@ -55,11 +55,6 @@ export default function UserPage({ serverData }) {
     let articleData = serverData;
     let articleMarkdown = serverData.markdown;
 
-    articleData.user = { 
-      id: serverData.user, 
-      name: "William McGonagle"
-    };
-
     let structuredData = {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
@@ -73,8 +68,8 @@ export default function UserPage({ serverData }) {
       "dateModified": articleData.updatedAt,
       "author": {
         "@type": "Person",
-        "name": articleData.user.name, // TODO: Add username
-        "url": "https://fairfieldprogramming.org/user/" + articleData.user.id
+        "name": articleData.username, // TODO: Add username
+        "url": "https://fairfieldprogramming.org/user/" + articleData.userId
       },
       "publisher": {
         "@type": "Organization",
@@ -88,8 +83,8 @@ export default function UserPage({ serverData }) {
 
     return (<>
       <Helmet>
-        <title>{ `${articleData.title} - ${articleData.user.name} - The Fairfield Programming Association` }</title>
-        <meta property="og:title" content={ `${articleData.title} - ${articleData.user.name} - The Fairfield Programming Association` } />
+        <title>{ `${articleData.title} - ${articleData.username} - The Fairfield Programming Association` }</title>
+        <meta property="og:title" content={ `${articleData.title} - ${articleData.username} - The Fairfield Programming Association` } />
         <link rel="canonical" href={`https://fairfieldprogramming.org/article/${articleData.id}`} />
         <meta property="og:url" content={`https://fairfieldprogramming.org/article/${articleData.id}`} />
         <meta name="description" content={articleData.description} />
@@ -106,7 +101,7 @@ export default function UserPage({ serverData }) {
       }}>
             <Card sx={{ width: '100%', my: 0, py: 0, mb: 4 }}>
                 <Heading as="h1" sx={{ fontSize: 6, mb: 2 }}> { articleData.title } </Heading>
-                <Responsibility align='left' userId={articleData.user.id} size={2} />
+                <Responsibility align='left' userId={articleData.userId} size={2} />
             </Card>
             <Card sx={{ my: 0, py: 0, textAlign: 'justify' }}>
                 { articleMarkdown.map(element => {
