@@ -10,7 +10,7 @@ import Footer from "../../components/footer";
 import Responsibility from "../../components/responsibility";
 
 /** @jsx jsx */
-import { Avatar, Link, Spinner, Card, Heading, Text, jsx } from 'theme-ui';
+import { Avatar, Link, Image, Spinner, Card, Heading, Text, jsx } from 'theme-ui';
 
 export function onRequestGet({ env, request }) {
     return env.ASSETS.fetch(
@@ -19,6 +19,15 @@ export function onRequestGet({ env, request }) {
         request
       )
     );
+}
+
+function QuickImage({ src, alt }) {
+
+  return <div sx={{ p: 3, mx: 'auto', display: 'flex', alignItems: 'center', flexDirection: 'column', maxWidth: "70%", maxHeight: "50%" }}>
+    <Image sx={{ height: '100%', borderRadius: 4 }} src={src} alt={alt} />
+    <Text sx={{ width: '100%', p: 2, textAlign: 'center' }}>{ alt }</Text>
+  </div>;
+
 }
 
 export async function getServerData(context) {
@@ -112,6 +121,8 @@ export default function UserPage({ serverData }) {
                     if (element.type === 'p') return <Text sx={{ my: 4, display: 'block', fontSize: 2, lineHeight: 2, width: '100%' }}>{element.data }</Text>;
 
                     if (element.type === 'block-code') return <SyntaxHighlighter sx={{ borderRadius: 2, minHeight: 200 }} language={element.language}>{ element.data }</SyntaxHighlighter>;
+
+                    if (element.type === 'img') return <QuickImage alt={element.alt} src={element.src} />
 
                 }) }
             </Card>
