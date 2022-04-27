@@ -58,21 +58,19 @@ export default function UserPage({ serverData }) {
     const [ questions, setQuestions ] = useState(null);
     useEffect(() => {
 
-      console.log(`https://fpa-questions.herokuapp.com/user/${userData.id}/questions`);
+      fetch(`https://fpa-questions.herokuapp.com/user/${userData.id}/questions`, { 
+          // mode: "no-cors" 
+      }).then((response) => {
 
-        fetch(`https://fpa-questions.herokuapp.com/user/${userData.id}/questions`, { 
-            // mode: "no-cors" 
-        }).then((response) => {
+          if (response.status === 404) { window.location.href = "/"; }
 
-            if (response.status === 404) { window.location.href = "/"; }
+          return response.json();
 
-            return response.json();
+      }).then((data) => {
 
-        }).then((data) => {
+          setQuestions(data);
 
-            setQuestions(data);
-
-        })
+      })
 
     }, [ userData.id ])
 
