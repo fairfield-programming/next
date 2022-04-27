@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet"
 
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 
@@ -23,11 +26,11 @@ export async function getServerData(context) {
     let articleId = context.params['*'];
 
     try {
-        const res = await fetch(`https://fpa-learn.herokuapp.com/article/${articleId}`)
+        const res = await fetch(`https://fpa-learn.herokuapp.com/article/${articleId}/safe`)
 
-        // if (!res.ok) {
-        //     throw new Error(`Response failed`)
-        // }
+        if (!res.ok) {
+            throw new Error(`Response failed`)
+        }
 
         const articleData = await res.json();
 
@@ -38,7 +41,7 @@ export async function getServerData(context) {
       } catch (error) {
 
         return {
-          status: 500,
+          status: 404,
           headers: {},
           props: {}
         }
@@ -49,32 +52,39 @@ export async function getServerData(context) {
 
 export default function UserPage({ serverData }) {
 
-    let articleData = {
-        title: 'Introduction to Javascript',
-        description: 'This is a test.',
-        user: {
-            name: 'William McGonagle'
-        }
+    let articleData = serverData;
+    let articleMarkdown = serverData.markdown;
+
+    articleData.user = { 
+      id: serverData.user, 
+      name: "William McGonagle"
     };
 
-    let articleMarkdown = [
-        {
-            type: 'h2',
-            data: 'this is a heading 2'
-        },
-        {
-            type: 'h3',
-            data: 'this is a heading 3'
-        },
-        {
-            type: 'h4',
-            data: 'this is a heading 4'
-        },
-        {
-            type: 'p',
-            data: 'this is a test'
+    let structuredData = {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://google.com/article"
+      },
+      "headline": articleData.title,
+      "image": articleData.markdown.filter(element => element.type == 'img').map(element => element.src),
+      "datePublished": articleData.createdAt,
+      "dateModified": articleData.updatedAt,
+      "author": {
+        "@type": "Person",
+        "name": articleData.user.name, // TODO: Add username
+        "url": "https://fairfieldprogramming.org/user/" + articleData.user.id
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "The Fairfield Programming Association",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://fairfieldprogramming.org/logo.png"
         }
-    ];
+      }
+    };
 
     return (<>
       <Helmet>
@@ -84,6 +94,9 @@ export default function UserPage({ serverData }) {
         <meta property="og:url" content={`https://fairfieldprogramming.org/article/${articleData.id}`} />
         <meta name="description" content={articleData.description} />
         <meta property="og:description" content={articleData.description} />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
       </Helmet>
       <Header />
       <div sx={{
@@ -93,7 +106,7 @@ export default function UserPage({ serverData }) {
       }}>
             <Card sx={{ width: '100%', my: 0, py: 0, mb: 4 }}>
                 <Heading as="h1" sx={{ fontSize: 6, mb: 2 }}> { articleData.title } </Heading>
-                <Responsibility align='left' userId={6} size={2} />
+                <Responsibility align='left' userId={articleData.user.id} size={2} />
             </Card>
             <Card sx={{ my: 0, py: 0, textAlign: 'justify' }}>
                 { articleMarkdown.map(element => {
@@ -102,6 +115,8 @@ export default function UserPage({ serverData }) {
                     if (element.type === 'h3') return <Heading as="h3" sx={{ my: 4, display: 'block', fontSize: 4 }}>{ element.data }</Heading>
                     if (element.type === 'h4') return <Heading as="h4" sx={{ my: 4, display: 'block', fontSize: 3 }}>{ element.data }</Heading>
                     if (element.type === 'p') return <Text sx={{ my: 4, display: 'block', fontSize: 2, lineHeight: 2, width: '100%' }}>{element.data }</Text>;
+
+                    if (element.type === 'block-code') return <SyntaxHighlighter sx={{ borderRadius: 2, minHeight: 200 }} language={element.language}>{ element.data }</SyntaxHighlighter>;
 
                 }) }
             </Card>
