@@ -14,6 +14,9 @@ export default async function handler(req, res) {
         { url: "/terms", changefreq: 'monthly', priority: 0.7 },
     ];
 
+    const articleResponse = await fetch('https://fpa-learn.herokuapp.com/article/');
+    const articles = await articleResponse.json();
+
     const questionResponse = await fetch('https://fpa-questions.herokuapp.com/question');
     const questions = await questionResponse.json();
 
@@ -37,6 +40,16 @@ export default async function handler(req, res) {
             changefreq: 'daily',
             priority: 0.2
         });
+
+    })
+
+    articles.forEach((item) => {
+
+        urls.push({
+            url: '/article/' + item.id,
+            title: item.title,
+            description: "This is a default description..."
+        })
 
     })
 

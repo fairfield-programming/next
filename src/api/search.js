@@ -18,6 +18,9 @@ export default async function handler(req, res) {
         { url: "/terms", title: 'Terms and Conditions', description: 'This is the page that contains the terms and conditions for the Fairfield Programming Association.' },
     ];
 
+    const articleResponse = await fetch('https://fpa-learn.herokuapp.com/article/');
+    const articles = await articleResponse.json();
+
     const questionResponse = await fetch('https://fpa-questions.herokuapp.com/question');
     const questions = await questionResponse.json();
 
@@ -41,6 +44,16 @@ export default async function handler(req, res) {
             title: item.username,
             description: "This is a default user description..."
         });
+
+    })
+
+    articles.forEach((item) => {
+
+        urls.push({
+            url: '/article/' + item.id,
+            title: item.title,
+            description: "This is a default description..."
+        })
 
     })
 

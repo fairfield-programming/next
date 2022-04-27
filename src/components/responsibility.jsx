@@ -60,6 +60,6 @@ export default function Responsibility({ userId, align, size }) {
 
     }, [ userId ])
 
-    return renderWithData({ align, ...userData, id: userId, size });
+    return renderWithData({ align, username: userData.username, profilePicture: userData.profilePicture, id: userId, size });
 
 }
