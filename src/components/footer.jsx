@@ -31,6 +31,9 @@ export default function Footer() {
                     <Link href="/about" sx={{ variant: 'links.navlink', p: 2 }}>
                         About
                     </Link>
+                    <Link href="/search" sx={{ variant: 'links.navlink', p: 2 }}>
+                        Search
+                    </Link>
                     <Link href="/learn" sx={{ variant: 'links.navlink', p: 2 }}>
                         Learn
                     </Link>
