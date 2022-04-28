@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet"
 
 import Cookies from 'universal-cookie';
@@ -59,11 +59,8 @@ function handleLoginSubmit({ username, password, stayLogged, setAlert }) {
 
         let token = data.token;
 
-        cookies.set("token", token);
-        cookies.set("userId", data.id);
-
-        if (typeof window != 'undefined')
-            window.location.href = "/user/" + data.id;
+        cookies.set("token", token, { path: '/' });
+        cookies.set("userId", data.id, { path: '/' });
 
     })
 
@@ -78,6 +75,13 @@ export default function LoginPage() {
     let [ alert, setAlert ] = useState("");
 
     let alertText = (alert.length != 0) ? (<Message mt={3}><Text color={"primary"}>{alert}</Text></Message>) : (<></>);
+
+    cookies.addChangeListener(() => {
+
+        if (typeof window != 'undefined')
+            window.location.href = "/user/" + cookies.get("userId");
+
+    });
 
     return (
         <>

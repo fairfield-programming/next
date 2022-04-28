@@ -12,6 +12,7 @@ export default async function handler(req, res) {
         { url: "/about", changefreq: 'monthly', priority: 0.7 },
         { url: "/privacy", changefreq: 'monthly', priority: 0.7 },
         { url: "/terms", changefreq: 'monthly', priority: 0.7 },
+        { url: "/search", changefreq: 'monthly', priority: 0.7 },
     ];
 
     const articleResponse = await fetch('https://fpa-learn.herokuapp.com/article/');

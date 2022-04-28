@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet"
 
+import Cookies from 'universal-cookie';
+
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 
@@ -10,6 +12,8 @@ import GenerateUser from "../../generators/User";
 
 /** @jsx jsx */
 import { Avatar, Link, Spinner, Card, Heading, Text, jsx } from 'theme-ui';
+
+const cookies = new Cookies();
 
 export function onRequestGet({ env, request }) {
     return env.ASSETS.fetch(
@@ -52,8 +56,7 @@ export async function getServerData(context) {
 export default function UserPage({ serverData }) {
 
     let userData = GenerateUser(serverData);
-
-    console.log(userData);
+    let isUser = userData.id == cookies.get("userId");
 
     const [ questions, setQuestions ] = useState(null);
     useEffect(() => {

@@ -76,8 +76,8 @@ function handleSignupSubmit({ email, username, password, termsAndPrivacyChecked,
 
         let token = data.token;
 
-        cookies.set("token", token);
-        cookies.set("userId", data.id);
+        cookies.set("token", token, { path: '/' });
+        cookies.set("userId", data.id, { path: '/' });
 
         if (typeof window != 'undefined')
             window.location.href = "/user/" + data.id;

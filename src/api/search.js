@@ -16,6 +16,7 @@ export default async function handler(req, res) {
         { url: "/about", title: 'About', description: 'The Fairfield Programming Association is an organization with one goal: educate the world about computer science. If you would like to learn how we do this, you can read about what we\'ve done below.' },
         { url: "/privacy", title: 'Privacy Policy', description: 'This is the page that contains the privacy policy for the Fairfield Programming Association.' },
         { url: "/terms", title: 'Terms and Conditions', description: 'This is the page that contains the terms and conditions for the Fairfield Programming Association.' },
+        { url: "/search", title: 'Search', description: 'Using this page, you can search all the contents of the Fairfield Programming Association website and our resources as well.' },
     ];
 
     const articleResponse = await fetch('https://fpa-learn.herokuapp.com/article/');
