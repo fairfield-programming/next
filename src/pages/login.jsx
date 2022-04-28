@@ -68,6 +68,10 @@ function handleLoginSubmit({ username, password, stayLogged, setAlert }) {
 
 export default function LoginPage() {
 
+    if (cookies.get("userId") !== undefined) 
+        if (typeof window !== 'undefined')
+            window.location.href = "/user/" + cookies.get("userId");
+
     let [ stayLogged, setStayLogged ] = useState(false);
     let [ username, setUsername ] = useState("");
     let [ password, setPassword ] = useState("");

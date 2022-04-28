@@ -88,6 +88,10 @@ function handleSignupSubmit({ email, username, password, termsAndPrivacyChecked,
 
 export default function SignupPage() {
 
+    if (cookies.get("userId") !== undefined) 
+        if (typeof window !== 'undefined')
+            window.location.href = "/user/" + cookies.get("userId");
+            
     let [ termsAndPrivacyChecked, setTAPChecked ] = useState(false);
 
     let [ username, setUsername ] = useState("");
