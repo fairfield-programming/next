@@ -1,5 +1,7 @@
 export default function GenerateUser(userData) {
 
+    if (userData == undefined) return {};
+
     let names = (userData.username || "").split("-");
 
     let firstname = capitalize(names[0] || "");
