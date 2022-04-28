@@ -3,7 +3,13 @@ import React from 'react';
 /** @jsx jsx */
 import { Link, jsx } from 'theme-ui';
 
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
 export default function Topbar() {
+
+    let isLoggedIn = cookies.get('userId') != undefined;
 
     return (
     <div sx={{
@@ -76,30 +82,37 @@ export default function Topbar() {
                 Questions
                 </Link>
             </div>
-            <div
-                sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-end',
-                order: 2,
-                }}>
-                <Link
-                href="/about"
-                sx={{
-                    variant: 'links.navlink',
-                    p: 2,
-                }}>
-                About
-                </Link>
-                <Link
-                href="/login"
-                sx={{
-                    variant: 'links.navlink',
-                    p: 2,
-                }}>
-                Log In
-                </Link>
-            </div>
+            { 
+                (isLoggedIn) ? (
+                    <></>
+                ) : (
+                <div
+                    sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                    order: 2,
+                    }}>
+                    <Link
+                    href="/about"
+                    sx={{
+                        variant: 'links.navlink',
+                        p: 2,
+                    }}>
+                    About
+                    </Link>
+                    <Link
+                    href="/login"
+                    sx={{
+                        variant: 'links.navlink',
+                        p: 2,
+                    }}>
+                    Log In
+                    </Link>
+                </div>
+                )
+            }
+            
         </header>
     </div>);
 
