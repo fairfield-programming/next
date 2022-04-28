@@ -61,6 +61,15 @@ function handleLoginSubmit({ username, password, stayLogged, setAlert }) {
 
         cookies.set("token", token, { path: '/' });
         cookies.set("userId", data.id, { path: '/' });
+        
+        fetch('https://fairfield-programming.herokuapp.com/user/' + data.id).then(response => response.json()).then((userData) => {
+
+            cookies.set("userData", userData, { path: '/' });
+            
+            if (typeof window !== 'undefined')
+                window.location.href = "/user/" + cookies.get("userId");
+
+        })
 
     })
 
@@ -79,13 +88,6 @@ export default function LoginPage() {
     let [ alert, setAlert ] = useState("");
 
     let alertText = (alert.length != 0) ? (<Message mt={3}><Text color={"primary"}>{alert}</Text></Message>) : (<></>);
-
-    cookies.addChangeListener(() => {
-
-        if (typeof window != 'undefined')
-            window.location.href = "/user/" + cookies.get("userId");
-
-    });
 
     return (
         <>

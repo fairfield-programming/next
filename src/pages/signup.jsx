@@ -79,8 +79,14 @@ function handleSignupSubmit({ email, username, password, termsAndPrivacyChecked,
         cookies.set("token", token, { path: '/' });
         cookies.set("userId", data.id, { path: '/' });
 
-        if (typeof window != 'undefined')
-            window.location.href = "/user/" + data.id;
+        fetch('https://fairfield-programming.herokuapp.com/user/' + data.id).then(response => response.json()).then((userData) => {
+
+            cookies.set("userData", userData, { path: '/' });
+            
+            if (typeof window !== 'undefined')
+                window.location.href = "/user/" + cookies.get("userId");
+
+        })
 
     })
 

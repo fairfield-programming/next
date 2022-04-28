@@ -1,7 +1,9 @@
 import React from 'react';
 
 /** @jsx jsx */
-import { Link, jsx } from 'theme-ui';
+import { Link, Avatar, jsx } from 'theme-ui';
+
+import cleanUser from '../generators/User'
 
 import Cookies from 'universal-cookie';
 
@@ -10,6 +12,7 @@ const cookies = new Cookies();
 export default function Topbar() {
 
     let isLoggedIn = cookies.get('userId') != undefined;
+    let userData = cleanUser(cookies.get('userData'))
 
     return (
     <div sx={{
@@ -84,9 +87,7 @@ export default function Topbar() {
             </div>
             { 
                 (isLoggedIn) ? (
-                    <></>
-                ) : (
-                <div
+                    <div
                     sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -94,22 +95,43 @@ export default function Topbar() {
                     order: 2,
                     }}>
                     <Link
-                    href="/about"
+                    href={"/settings"}
                     sx={{
                         variant: 'links.navlink',
                         p: 2,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
                     }}>
-                    About
-                    </Link>
-                    <Link
-                    href="/login"
-                    sx={{
-                        variant: 'links.navlink',
-                        p: 2,
-                    }}>
-                    Log In
+                    { userData.firstname }
+                    <Avatar src={userData.profilePicture} sx={{ mx: 2, borderRadius: "50%", width: 40, height: 40, borderColor: 'background02', borderWidth: 1, borderStyle: 'solid' }} />
                     </Link>
                 </div>
+                ) : (
+                    <div
+                        sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        order: 2,
+                        }}>
+                        <Link
+                        href="/about"
+                        sx={{
+                            variant: 'links.navlink',
+                            p: 2,
+                        }}>
+                        About
+                        </Link>
+                        <Link
+                        href="/login"
+                        sx={{
+                            variant: 'links.navlink',
+                            p: 2,
+                        }}>
+                        Log In
+                        </Link>
+                    </div>
                 )
             }
             
