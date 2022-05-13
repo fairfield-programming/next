@@ -14,7 +14,7 @@ export default function AnswerQuestionPage() {
     cookies.remove("token", { path: '/' })
     cookies.remove("userData", { path: '/' })
     
-    if (window !== undefined)
+    if (typeof window !== 'undefined')
         window.location.href = "/";
 
     return ( <Flex sx={{
