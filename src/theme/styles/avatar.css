@@ -1,0 +1,21 @@
+.avatar {
+
+    border: 1px solid #fff;   
+    box-shadow: 0px 0px 0px 1px #ddd;
+    border-radius: 35%;
+    
+}
+
+.avatar.large {
+
+    width: 120px;
+    height: 120px;
+
+}
+
+.avatar.small {
+
+    width: 40px;
+    height: 40px;
+
+}

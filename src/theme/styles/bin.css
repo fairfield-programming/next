@@ -1,0 +1,37 @@
+.bin {
+
+    width: 100%;
+    border: 0px;
+    border-bottom: 1px solid #eee;
+
+}
+
+.binCenter {
+
+    padding: 0px 25px;
+    max-width: 1000px;
+    margin: 0px auto;
+
+}
+
+.binLink {
+
+    width: min-content;
+    display: inline-block;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'Red Hat Mono', monospace;
+    font-weight: 900;
+    padding: 10px 20px;
+    font-size: 12px;
+    color: #666666;
+    white-space: nowrap;
+
+}
+
+.binLink.active {
+
+    color: #457DDB;
+    border-bottom: 1.5px solid #457DDB;
+
+}

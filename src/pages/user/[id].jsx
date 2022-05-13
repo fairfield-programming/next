@@ -1,24 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet"
+import { Router } from "@reach/router"
 
 import Cookies from 'universal-cookie';
 
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 
-import Question from "../../components/question";
-
 import GenerateUser from "../../generators/User";
 
+import Question from '../../components/question';
+
 /** @jsx jsx */
-import { Avatar, Link, Spinner, Card, Heading, Text, jsx } from 'theme-ui';
+import { Spinner, jsx } from 'theme-ui';
+
+import Masthead from '../../theme/components/masthead';
+import Heading from '../../theme/components/heading';
+import Bin, { BinLink } from '../../theme/components/bin';
+import Avatar from '../../theme/components/avatar';
+import Paragraph from '../../theme/components/paragraph';
+import Together from '../../theme/components/together';
+import Centerbox from '../../theme/components/centerbox';
+import Body from "../../theme/components/body";
 
 const cookies = new Cookies();
 
 export function onRequestGet({ env, request }) {
     return env.ASSETS.fetch(
       new Request(
-        new URL("/user/:id/", request.url).toString(),
+        new URL("/user/:id", request.url).toString(),
         request
       )
     );
@@ -26,7 +36,9 @@ export function onRequestGet({ env, request }) {
 
 export async function getServerData(context) {
 
-    let userId = context.params['*'];
+    let urlParts = context.params['*'].split('/');
+    let userId = urlParts[0] || '';
+    let queryString = urlParts[1] || '';
 
     try {
         const res = await fetch(`https://fairfield-programming.herokuapp.com/user/${userId}`)
@@ -38,7 +50,7 @@ export async function getServerData(context) {
         const userData = await res.json();
 
         return {
-          props: { ...userData, id: userId }
+          props: { ...userData, id: userId, queryString }
         }
 
       } catch (error) {
@@ -53,10 +65,15 @@ export async function getServerData(context) {
 
 }
 
-export default function UserPage({ serverData }) {
+function Default() {
 
-    let userData = GenerateUser(serverData);
-    let isUser = userData.id == cookies.get("userId");
+    return <Centerbox tall>
+        <Paragraph>General info about this user is not avalible.</Paragraph>
+    </Centerbox>;
+
+}
+
+function Questions ({ userData }) {
 
     const [ questions, setQuestions ] = useState(null);
     useEffect(() => {
@@ -77,6 +94,27 @@ export default function UserPage({ serverData }) {
 
     }, [ userData.id ])
 
+    return <Body>
+      <ul
+        sx={{
+          listStyle: 'none',
+          display: 'grid',
+          gridGap: 3,
+          gridTemplateColumns: '1fr',
+        }}>
+        {(questions == null ? <Spinner /> : questions.map((post) => (
+          <Question data={post} />
+        )))}
+      </ul>
+    </Body>;
+
+}
+
+export default function UserPage({ serverData }) {
+
+    let userData = GenerateUser(serverData);
+    let isUser = userData.id == cookies.get("userId");
+
     return (<>
       <Helmet>
         <title>{ `${userData.firstname} ${userData.lastname} - The Fairfield Programming Association` }</title>
@@ -87,52 +125,23 @@ export default function UserPage({ serverData }) {
         <meta property="og:description" content={userData.biography} />
       </Helmet>
       <Header />
-      <div sx={{
-        maxWidth: 800,
-        mx: 'auto',
-        my: 100
-      }}>
-        <Card variant="cards.bordered" sx={{
-          width: '100%',
-          // bg: 'background01',
-          borderRadius: 5,
-          p: 4
-        }}>
-        <div
-          sx={{
-            display: 'grid',
-            gridGap: 2,
-            gridTemplateColumns: `144px 1fr`,
-          }}>
-          <div sx={{ height: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column' }}>
-            <Avatar src={ userData.profilePicture } variant={"avatars.large"} />
-          </div>
-          <div sx={{ height: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexDirection: 'column' }}>
-            <Heading my={2}>{ `${userData.firstname} ${userData.lastname}` }</Heading>
-            <Text>{ userData.biography }</Text>
-          </div>
-        </div>
+      <Masthead inline >
+        <Avatar src={ userData.profilePicture } username={ userData.username } size="large" />
+        <Together>
+          <Heading type="h1">{ userData.fullname }</Heading>
+          <Paragraph thinner>{ userData.biography }</Paragraph>
+        </Together>
+      </Masthead>
+      <Bin>
+        <BinLink to={`/user/${userData.id}`} text="General" />
+        <BinLink to={`/user/${userData.id}/questions`} text="Questions" />
+        <BinLink to={`/user/${userData.id}/articles`} text="Articles" />
+      </Bin>
+        {
 
-        </Card>
-        <div sx={{
-            m: 0,
-            px: 3,
-            py: 4,
-        }}>
-          <Heading as="h1">{ `${(questions || { length: 0 }).length} Questions` }</Heading>
-          <ul
-            sx={{
-              listStyle: 'none',
-              display: 'grid',
-              gridGap: 3,
-              gridTemplateColumns: '1fr',
-            }}>
-            {(questions == null ? <Spinner /> : questions.map((post) => (
-              <Question data={post} />
-            )))}
-          </ul>
-        </div>
-      </div>
+            (serverData.queryString == 'questions') ? (<Questions userData={userData} />) : (<Default userData={userData} />)
+
+        }   
       <Footer />
     </>);
 

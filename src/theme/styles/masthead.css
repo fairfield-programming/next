@@ -1,0 +1,46 @@
+.masthead {
+
+    width: 100%;
+    border: 0px;
+    border-bottom: 1px solid #EEEEEE;
+
+}
+
+.masthead.bottomLeft {
+
+    padding: 0px 25px;
+    padding-top: 100px;
+
+}
+
+.masthead.centered {
+
+    padding: 50px 25px;
+
+}
+
+.masthead.color {
+
+    background: #0F006C;
+    color: #ffffff;
+    border: none;
+
+}
+
+.mastheadInner {
+
+    max-width: 1000px;
+    margin: 0px auto;
+
+}
+
+.mastheadInner.inline {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 25px 0px;
+    gap: 20px;
+    
+}

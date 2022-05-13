@@ -1,0 +1,15 @@
+.paragraph {
+
+    line-height: 1.8;
+    font-size: 16px;
+    text-align: justify;
+    font-family: 'Red Hat Display', sans-serif;
+
+}
+
+.paragraph.thinner {
+
+    line-height: 1.4;
+    text-align: left;
+
+}

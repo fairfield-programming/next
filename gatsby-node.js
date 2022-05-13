@@ -2,9 +2,11 @@
 
 exports.onCreatePage = async ({ page, actions: { createPage } }) => {
 
+  console.log('Page - ' + page.path);
+
   if (page.path.match(/^\/user/)) {
 
-    page.matchPath = "/user/*"
+    page.matchPath = "/user/*";
     createPage(page);
    
   }
