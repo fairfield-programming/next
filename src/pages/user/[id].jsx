@@ -82,7 +82,10 @@ function Questions ({ userData }) {
           // mode: "no-cors" 
       }).then((response) => {
 
-          if (response.status === 404) { window.location.href = "/"; }
+          if (response.status === 404) { 
+            if (typeof window !== 'undefined')
+              window.location.href = "/"; 
+          }
 
           return response.json();
 

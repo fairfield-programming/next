@@ -13,8 +13,9 @@ export default function AnswerQuestionPage() {
     cookies.remove("userId", { path: '/' })
     cookies.remove("token", { path: '/' })
     cookies.remove("userData", { path: '/' })
-
-    window.location.href = "/";
+    
+    if (window !== undefined)
+        window.location.href = "/";
 
     return ( <Flex sx={{
         position: 'fixed',
