@@ -68,7 +68,7 @@ export async function getServerData(context) {
 function Default() {
 
     return <Centerbox tall>
-        <Paragraph>General info about this user is not avalible.</Paragraph>
+        <Paragraph>General info about this user is not available.</Paragraph>
     </Centerbox>;
 
 }
