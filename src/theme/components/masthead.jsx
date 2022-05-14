@@ -3,8 +3,8 @@ import '../styles/masthead.css';
 
 export default function Masthead({ theme, layout, children, color, inline }) {
 
-    theme ||= "";
-    layout ||= "bottomLeft"
+    theme = theme || "";
+    layout = layout || "bottomLeft"
     let inlineStyle = '';
 
     if (color != undefined) theme = "color";
