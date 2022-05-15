@@ -13,6 +13,8 @@ import Bin, { BinLink } from "../../theme/components/bin";
 import Sidebar from "../../theme/components/sidebar";
 import Paragraph from "../../theme/components/paragraph";
 import Link from "../../theme/components/link";
+import Body from "../../theme/components/body";
+import Centerbox from "../../theme/components/centerbox";
 
 /** @jsx jsx */
 import { Box, Avatar, Card, Text, Flex, NavLink,  jsx, Divider, Spinner } from 'theme-ui';
@@ -149,6 +151,12 @@ export default function QuestionPage({ serverData }) {
 
   }, [])
 
+  let answerData = answers.map((answer) => {
+
+    return <Answer data={answer} />
+
+  });
+
   return (<>
       <Header />
       <Helmet>
@@ -177,26 +185,21 @@ export default function QuestionPage({ serverData }) {
           </div>
         </Together>
       </Masthead>
-      <Box sx={{ maxWidth: 1000, mx: 'auto' }}>
+      <Body padding="0px" width="1000px">
         <Flex sx={{
                 maxWidth: 1200,
                 mx: 'auto',
             }}>
-          <Box p={2} sx={{ width: '75%', display: 'block', alignItems: 'center', justifyContent: 'center' }}>
-            <Card >
-              <Text>{ serverData.body || "This question doesn't have a description..." }</Text>
-              <Box sx={{ height: 60 }} /> 
-              <Heading type="h3">{(answers.length == 0) ? "No " : "" } Answers</Heading>
-              <div>
-                {
-                  answers.map((answer) => {
-
-                    return <Answer data={answer} />
-
-                  })
-                }
-              </div>
-            </Card>
+          <Box p={2} sx={{ width: '75%' }}>
+            <Heading type="h3">Question's Story</Heading>
+            <Paragraph>{ serverData.body || "This question doesn't have a description..." }</Paragraph>
+            <Box sx={{ height: 60 }} /> 
+            <Heading type="h3">{(answers.length == 0) ? "No " : "" } Answers</Heading>
+            <div>
+              {
+                (answerData.length == 0) ? <Centerbox tall><Paragraph> No Answers Yet </Paragraph></Centerbox> : answerData
+              }
+            </div>
           </Box>
           <Sidebar side="left">
             <Bin vertical>
@@ -218,7 +221,7 @@ export default function QuestionPage({ serverData }) {
             </div>
           </Sidebar>
         </Flex> 
-      </Box>
+      </Body>
       <Footer />
   </>);
 

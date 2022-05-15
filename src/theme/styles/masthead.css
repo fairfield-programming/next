@@ -8,6 +8,7 @@
 
 .masthead.bottomLeft {
 
+    width: calc(100% - 50px);
     padding: 0px 25px;
     padding-top: 100px;
 
