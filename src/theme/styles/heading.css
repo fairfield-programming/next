@@ -14,3 +14,23 @@ h2.heading {
     text-transform: uppercase;
 
 }
+
+h3.heading {
+
+    font-size: 18px;
+    text-align: left;
+    font-family: 'Red Hat Display', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+
+}
+
+h4.heading {
+
+    font-size: 14px;
+    text-align: left;
+    font-family: 'Red Hat Display', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+
+}

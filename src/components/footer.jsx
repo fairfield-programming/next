@@ -43,7 +43,7 @@ export default function Footer() {
                 <a href="/terms">
                 Terms of Service
                 </a>
-                © {new Date().getFullYear()} The Fairfield Programming Association
+                © {new Date().getFullYear()} The Fairfield Programming Association Inc.
             </div>
         </footer>
     );

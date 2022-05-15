@@ -5,7 +5,13 @@ import {
 } from "@reach/router";
 import '../styles/bin.css';
 
-export default function Bin({ children }) {
+export default function Bin({ children, vertical }) {
+
+    if (vertical !== undefined) return <div className="bin">
+        <div className="vertBin">
+            { children }
+        </div>
+    </div>;
 
     return <div className="bin">
         <div className="binCenter">

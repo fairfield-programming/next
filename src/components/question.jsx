@@ -24,7 +24,7 @@ export default function Question({ data }) {
 
     let questionLink = `/question/${questionData.id}`;
 
-    return (<div className='questionContainer'>
+    return (<a href={questionLink} className='questionContainer'>
         <Heading type='h2'>{ questionData.title }</Heading>
         <Paragraph>{ questionText }</Paragraph>
         <div className='footer'>
@@ -32,6 +32,6 @@ export default function Question({ data }) {
             <p>{ answersText }</p>
             <p>{ pointsText }</p>
         </div>
-    </div>);
+    </a>);
 
 }

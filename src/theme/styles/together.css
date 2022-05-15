@@ -4,6 +4,13 @@
 
 }
 
+.together.inline {
+
+    display: inline-block;
+    width: fit-content;
+
+}
+
 .together * {
 
     margin: 0px;

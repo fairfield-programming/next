@@ -33,8 +33,13 @@ footer a {
     text-decoration: none;
     color: #333;
     border: none;
-    border-bottom: 1px solid #efefef;
     margin: 0px;
+
+}
+
+footer a:hover {
+
+    text-decoration: underline;
 
 }
 

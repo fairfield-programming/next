@@ -5,8 +5,11 @@
     border: 1px solid #eee;
     padding: 25px;
     padding-bottom: 75px;
-    z-index: -1;
+    z-index: 1;
     background: #fff;
+    color: inherit;
+    text-decoration: none;
+    display: block;
 
 }
 

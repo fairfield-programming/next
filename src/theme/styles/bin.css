@@ -6,6 +6,18 @@
 
 }
 
+.vertBin {
+
+    padding: 0px;
+    max-width: 1000px;
+    margin: 0px auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
 .binCenter {
 
     padding: 0px 25px;
@@ -29,7 +41,7 @@
 
 }
 
-.binLink.active {
+.binCenter .binLink.active {
 
     color: #457DDB;
     border-bottom: 1.5px solid #457DDB;

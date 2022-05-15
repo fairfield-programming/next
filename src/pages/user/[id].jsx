@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet"
-import { Router } from "@reach/router"
 
 import Cookies from 'universal-cookie';
 

@@ -22,7 +22,8 @@ export default function Topbar() {
         left: 0,
         right: 0,
         top: 0,
-        bg: 'background'
+        bg: 'background',
+        zIndex: 9999
     }}>
         <header sx={{
             display: 'grid',

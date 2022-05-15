@@ -1,8 +1,10 @@
 import React from 'react';
 import '../styles/together.css';
 
-export default function Together({ children }) {
+export default function Together({ children, inline }) {
 
-    return <div className="together">{ children }</div>;
+    if (inline !== undefined) inline = "inline";
+
+    return <div className={`together ${inline}`}>{ children }</div>;
 
 }
