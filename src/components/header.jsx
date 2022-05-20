@@ -1,7 +1,12 @@
 import React from 'react';
 
+import './header.css';
+
 /** @jsx jsx */
-import { Link, Avatar, jsx } from 'theme-ui';
+import { Link, jsx } from 'theme-ui';
+
+import Avatar from '../theme/components/avatar';
+import Heading from '../theme/components/heading';
 
 import cleanUser from '../generators/User'
 
@@ -15,37 +20,22 @@ export default function Topbar() {
     let userData = cleanUser(cookies.get('userData'))
 
     return (
-    <div sx={{
-        borderBottom: "1px solid #ddd",
-        position: 'fixed',
-        // width: '100%',
-        left: 0,
-        right: 0,
-        top: 0,
-        bg: 'background',
-        zIndex: 9999
-    }}>
-        <header sx={{
-            display: 'grid',
-            gridGap: 3,
-            maxWidth: 1000,
-            mx: 'auto',
-            px: 1,
-            py: 1,
-            gridAutoFlow: 'row',
-            gridTemplateColumns: ['repeat(2, 1fr)', 'repeat(3, 1fr)'],
-            variant: 'styles.header',
-            fontFamily: "heading"
-        }}>
-            <div sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gridColumnStart: [1, 2],
-                gridColumnEnd: [3, 3],
-                order: [0, 1],
-                }}>
-                <Link href="/" title="Home">
+    <div className="headerParent">
+        <header>
+            <div className='left'>
+                <a>
+                    Our Programs
+                    <div>
+                        <Heading type="h3">Online Programs</Heading>
+                        <p className='grid'>
+                            <a href="/learn">Learning</a>
+                            <a href="/questions">Questions</a>
+                        </p>
+                    </div>
+                </a>
+            </div>
+            <div className='center'>
+                <a href="/" title="Home">
                     <img
                         alt="FPA Logo"
                         height={50}
@@ -61,77 +51,24 @@ export default function Topbar() {
                         }}>
                         Home
                     </span>
-                </Link>
-            </div>
-            <div
-                sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                }}>
-                <Link
-                href="/learn"
-                sx={{
-                    variant: 'links.navlink',
-                    p: 2,
-                }}>
-                Learn
-                </Link>
-                <Link
-                href="/questions"
-                sx={{
-                    variant: 'links.navlink',
-                    p: 2,
-                }}>
-                Questions
-                </Link>
+                </a>
             </div>
             { 
                 (isLoggedIn) ? (
-                    <div
-                    sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end',
-                    order: 2,
-                    }}>
-                    <Link
-                    href={"/settings"}
-                    sx={{
-                        variant: 'links.navlink',
-                        p: 2,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}>
-                    { userData.firstname }
-                    <Avatar src={userData.profilePicture} sx={{ mx: 2, borderRadius: "50%", width: 40, height: 40, borderColor: 'background02', borderWidth: 1, borderStyle: 'solid' }} />
-                    </Link>
-                </div>
+                    <div className='right'>
+                        <a href={"/settings"}>{ userData.firstname }</a>
+                        <a href={"/settings"}>
+                        <Avatar src={userData.profilePicture} username={userData.fullname} />
+                        </a>
+                    </div>
                 ) : (
-                    <div
-                        sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        order: 2,
-                        }}>
-                        <Link
-                        href="/about"
-                        sx={{
-                            variant: 'links.navlink',
-                            p: 2,
-                        }}>
-                        About
-                        </Link>
-                        <Link
-                        href="/login"
-                        sx={{
-                            variant: 'links.navlink',
-                            p: 2,
-                        }}>
-                        Log In
-                        </Link>
+                    <div className='right'>
+                        <a href="/about">
+                            About
+                        </a>
+                        <a href="/login">
+                            Log In
+                        </a>
                     </div>
                 )
             }

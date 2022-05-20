@@ -21,16 +21,18 @@ export default function QuestionsPage() {
     let [ questions, setQuestions ] = useState(null);
     let [ search, setSearch ] = useState('recent');
 
-    useEffect(() => {
+    // let hash = window.location.hash.substring(1);
+    // if (hash === 'recent') setSearch('recent');
+    // if (hash === 'trending') setSearch('trending');
+    // if (hash === 'unanswered') setSearch('unanswered');
 
-        let hash = window.location.hash.substring(1);
-        if (hash == 'recent') setSearch('recent');
-        if (hash == 'trending') setSearch('trending');
-        if (hash == 'unanswered') setSearch('unanswered');
+    useEffect(() => {
 
         fetch(`https://fpa-questions.herokuapp.com/question/${search}`).then(response => {
 
-            if (!response.ok) window.location.href = "/questions";
+            if (!response.ok) 
+                if (typeof window != 'undefined')
+                    window.location.href = "/questions";
     
             return response.json();
     
@@ -71,9 +73,9 @@ export default function QuestionsPage() {
                     </Box>
                     <Sidebar side="left">
                         <Bin vertical>
-                            <BinLink to={`./#recent`} text="🆕 Recent" />
-                            <BinLink to={`./#trending`} text="📈 Trending" />
-                            <BinLink to={`./#unanswered`} text="🤔 Unanswered" />
+                            <BinLink to={`/questions/#recent`} text="🆕 Recent" />
+                            <BinLink to={`/questions/#trending`} text="📈 Trending" />
+                            <BinLink to={`/questions/#unanswered`} text="🤔 Unanswered" />
                         </Bin>
                         {/* <div style={{ padding: "0px 25px" }}>
                             <Heading type='h4'>Related</Heading>

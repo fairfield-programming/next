@@ -64,27 +64,49 @@ function distanceFromDate(dateObject) {
   let difference = Date.now() - new Date(dateObject).getTime()
 
   let differenceInMonths = difference / (1000 * 60 * 60 * 24 * 30);
-  let actualDifferenceInMonths = differenceInMonths - Math.round(differenceInMonths);
+  let actualDifferenceInMonths = differenceInMonths - Math.floor(differenceInMonths);
   let shownDifferenceInMonths = Math.round(differenceInMonths);
 
   let differenceInWeeks = actualDifferenceInMonths * 4;
-  let actualDifferenceInWeeks = differenceInWeeks - Math.round(differenceInWeeks);
+  let actualDifferenceInWeeks = differenceInWeeks - Math.floor(differenceInWeeks);
   let shownDifferenceInWeeks = Math.round(differenceInWeeks);
 
   let differenceInDays = actualDifferenceInWeeks * 30;
-  let actualDifferenceInDays = differenceInDays - Math.round(differenceInDays);
+  let actualDifferenceInDays = differenceInDays - Math.floor(differenceInDays);
   let shownDifferenceInDays = Math.round(differenceInDays);
 
   let differenceInHours = actualDifferenceInDays * 24;
-  let actualDifferenceInHours = differenceInHours - Math.round(differenceInHours);
+  let actualDifferenceInHours = differenceInHours - Math.floor(differenceInHours);
   let shownDifferenceInHours = Math.round(differenceInHours);
+
+  let differenceInMinutes = actualDifferenceInHours * 60;
+  let actualDifferenceInMinutes = differenceInMinutes - Math.floor(differenceInMinutes);
+  let shownDifferenceInMinutes = Math.round(differenceInMinutes);
+
+  let differenceInSeconds = actualDifferenceInMinutes * 60;
+  // let actualDifferenceInSeconds = differenceInSeconds - Math.round(differenceInSeconds);
+  let shownDifferenceInSeconds = Math.round(differenceInSeconds);
 
   let output = [];
 
   if (shownDifferenceInMonths > 0) output.push(`${shownDifferenceInMonths} ${shownDifferenceInMonths == 1 ? ('Month') : ('Months')}`);
   if (shownDifferenceInWeeks > 0) output.push(`${shownDifferenceInWeeks} ${shownDifferenceInWeeks == 1 ? ('Week') : ('Weeks')}`);
+
+  if (output.length > 1) return `${output.join(', ')} ago`;
+
   if (shownDifferenceInDays > 0) output.push(`${shownDifferenceInDays} ${shownDifferenceInDays == 1 ? ('Day') : ('Days')}`);
+
+  if (output.length > 1) return `${output.join(', ')} ago`;
+
   if (shownDifferenceInHours > 0) output.push(`${shownDifferenceInHours} ${shownDifferenceInHours == 1 ? ('Hour') : ('Hours')}`);
+
+  if (output.length > 1) return `${output.join(', ')} ago`;
+
+  if (shownDifferenceInMinutes > 0) output.push(`${shownDifferenceInMinutes} ${shownDifferenceInMinutes == 1 ? ('Minute') : ('Minutes')}`);
+
+  if (output.length > 1) return `${output.join(', ')} ago`;
+
+  if (shownDifferenceInSeconds > 0) output.push(`${shownDifferenceInSeconds} ${shownDifferenceInSeconds == 1 ? ('Second') : ('Seconds')}`);
 
   return `${output.join(', ')} ago`;
 
@@ -203,9 +225,9 @@ export default function QuestionPage({ serverData }) {
           </Box>
           <Sidebar side="left">
             <Bin vertical>
-              <BinLink to={`/`} text="🆕 Recent" />
-              <BinLink to={`/`} text="📈 Trending" />
-              <BinLink to={`/`} text="🤔 Unanswered" />
+              <BinLink to={`/questions/#recent`} text="🆕 Recent" />
+              <BinLink to={`/questions/#trending`} text="📈 Trending" />
+              <BinLink to={`/questions/#unanswered`} text="🤔 Unanswered" />
             </Bin>
             <div style={{ padding: "0px 25px" }}>
               <Heading type='h4'>Related</Heading>
